@@ -1,0 +1,57 @@
+@import 'src/scss/_vars.scss';
+
+.item {
+  position: relative;
+  display: grid;
+  //grid-template-columns: repeat(2, auto);
+  grid-template-columns: minmax(0, 100%);
+  grid-template-rows: repeat(2, auto);
+  grid-column-gap: 15px;
+  grid-row-gap: 8px;
+  height: 70px;
+  //grid-auto-rows: ;
+  //grid-auto-columns: ;
+  padding: 15px 15px 15px 46px;
+}
+
+.name, .description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1rem;
+}
+
+.name {
+  @include font($font-f-regular, 700);
+
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  color: $font-c-primary;
+}
+
+.description {
+  @include font($font-f-regular, 400);
+
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  color: $font-c-secondary;
+  font-size: .875rem;
+}
+
+.datetime {
+  @include font($font-f-regular, 400);
+
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  display: flex;
+  column-gap: 10px;
+  color: $font-c-primary;
+  white-space: nowrap;
+  font-size: .875rem;
+}

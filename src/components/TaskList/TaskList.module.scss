@@ -1,0 +1,8 @@
+@import 'src/scss/_vars.scss';
+
+.wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  list-style-type: none;
+}
