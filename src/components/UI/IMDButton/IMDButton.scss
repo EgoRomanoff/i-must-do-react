@@ -1,0 +1,17 @@
+@import "src/scss/_vars.scss";
+// button type
+.btn--add {
+  border-color: $green-500;
+  color: $green-500;
+
+  &:hover {
+    background: $green-500;
+    color: $white;
+  }
+}
+
+//button size
+.btn--lg {
+  height: 36px;
+  padding: 0 15px;
+}

@@ -1,0 +1,42 @@
+@import "src/scss/_vars.scss";
+
+.wrapper {
+  display: flex;
+  flex-basis: 100%;
+  height: 36px;
+  border: 1px solid $green-500;
+  border-radius: $radius-primary;
+  background: $white;
+  overflow: hidden;
+}
+
+.input {
+  @include font($font-f-regular, 400);
+
+  flex-grow: 1;
+  font-size: 1rem;
+  color: $font-c-primary;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+}
+
+.btn {
+  display: flex;
+  flex-grow: 0;
+  justify-content: center;
+  align-items: center;
+  background: $white;
+  border: none;
+  border-left: 1px solid $green-500;
+  padding: 0 15px;
+  cursor: pointer;
+
+  &:hover {
+    background: $green-500;
+
+    & svg {
+      fill: $white;
+    }
+  }
+}

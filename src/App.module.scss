@@ -1,6 +1,7 @@
 @import 'scss/_vars.scss';
 
-.todo {
+.wrapper {
+  position: relative;
   display: flex;
   max-width: 1366px;
   max-height: 100vh;

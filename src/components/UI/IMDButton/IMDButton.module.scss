@@ -1,0 +1,21 @@
+@import "src/scss/_vars.scss";
+
+.btn {
+  @include font($font-f-regular, 500);
+
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  border: 1px solid;
+  border-radius: $radius-primary;
+  background: $white;
+  cursor: pointer;
+
+  & svg {
+    margin-left: 10px;
+  }
+
+  &:hover svg {
+    fill: $white;
+  }
+}
