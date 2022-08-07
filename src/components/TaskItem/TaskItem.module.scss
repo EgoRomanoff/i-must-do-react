@@ -3,14 +3,10 @@
 .item {
   position: relative;
   display: grid;
-  //grid-template-columns: repeat(2, auto);
-  grid-template-columns: minmax(0, 100%);
-  grid-template-rows: repeat(2, auto);
-  grid-column-gap: 15px;
-  grid-row-gap: 8px;
-  height: 70px;
-  //grid-auto-rows: ;
-  //grid-auto-columns: ;
+  grid-template-columns: minmax(0, 100%) minmax(0, auto);
+  grid-template-rows: minmax(0, 100%) minmax(0, auto);
+  align-content: space-between;
+  min-height: 70px;
   padding: 15px 15px 15px 46px;
 }
 
@@ -28,7 +24,7 @@
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 2;
-  color: $font-c-primary;
+  align-self: center;
 }
 
 .description {
@@ -38,8 +34,10 @@
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
+  padding-top: 8px;
   color: $font-c-secondary;
   font-size: .875rem;
+  height: 24px;
 }
 
 .datetime {
@@ -49,9 +47,20 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
+  align-self: center;
   display: flex;
-  column-gap: 10px;
-  color: $font-c-primary;
+  margin-left: 15px;
   white-space: nowrap;
   font-size: .875rem;
+}
+
+.date {
+  & + .time:before {
+    content: '-';
+    padding: 0 2px;
+  }
+}
+
+.time {
+
 }

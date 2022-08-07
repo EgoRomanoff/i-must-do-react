@@ -1,49 +1,41 @@
 import stl from './TaskList.module.scss'
 import TaskItem from "../TaskItem/TaskItem";
 
-function TaskList() {
+function TaskList({ tasks }) {
 
-	let tasks = [
-		{
-			id: 1,
-			name: 'Название задачи название задачи название задачи название задачи',
-			description: 'Описание задачи описание задачи описание задачи описание задачи',
-			date: '01.05.2022',
-			time: '23:45',
-			status: 'inProcess'
-		},
-		{
-			id: 2,
-			name: 'Название задачи название задачи название задачи название задачи',
-			description: 'Описание задачи',
-			date: '01.05.2022',
-			time: '23:45',
-			status: 'waiting'
-		},
-		{
-			id: 3,
-			name: 'Название задачи',
-			description: 'Описание задачи описание задачи описание задачи описание задачи',
-			date: '01.05.2022',
-			time: '23:45',
-			status: 'complete'
-		},
-	]
+	const isTasksEmpty = arr => {
+		console.log(arr.length)
+		if (arr.length) {
+			return tasks.map(task => {
+				return (<TaskItem
+					key={ task.id }
+					name={ task.name }
+					description={ task.description }
+					date={ task.date }
+					time={ task.time }
+					status={ task.status }
+				/>)
+			})
+		} else {
+			return <span className={ stl.emptyMessage }>Задач нет</span>
+		}
+	}
 
 	return (
 		<ul className={ stl.wrapper }>
-			{
-				tasks.map(task => {
-					return (<TaskItem
-						key={ task.id }
-						name={ task.name }
-						description={ task.description }
-						date={ task.date }
-						time={ task.time }
-						status={ task.status }
-					/>)
-				})
-			}
+			{/*{*/}
+			{/*	tasks.map(task => {*/}
+			{/*		return (<TaskItem*/}
+			{/*			key={ task.id }*/}
+			{/*			name={ task.name }*/}
+			{/*			description={ task.description }*/}
+			{/*			date={ task.date }*/}
+			{/*			time={ task.time }*/}
+			{/*			status={ task.status }*/}
+			{/*		/>)*/}
+			{/*	})*/}
+			{/*}*/}
+			{isTasksEmpty(tasks)}
 		</ul>
 	);
 }
