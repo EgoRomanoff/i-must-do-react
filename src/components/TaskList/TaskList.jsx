@@ -4,7 +4,6 @@ import TaskItem from "../TaskItem/TaskItem";
 function TaskList({ tasks }) {
 
 	const isTasksEmpty = arr => {
-		console.log(arr.length)
 		if (arr.length) {
 			return tasks.map(task => {
 				return (<TaskItem
