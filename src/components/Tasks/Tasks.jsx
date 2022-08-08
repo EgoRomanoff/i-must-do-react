@@ -78,34 +78,26 @@ function Tasks() {
 		}
 	]
 
-	const dragImg = document.createElement('img');
-	dragImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-	dragImg.style.width = '30px'
-	dragImg.style.height = '30px'
-	dragImg.style.background = 'red'
+	const dragImg = document.createElement('canvas');
+	dragImg.classList.add('drag-img')
+	dragImg.width = 0;
+	dragImg.height = 0;
 
-  let startPosition, elemWidth
+  let startPosition, tasksWidth
 
 	const initResize = e => {
 		e.stopPropagation()
-    const elem = document.querySelector('#tasks')
+    const tasksElem = document.querySelector('#tasks')
     startPosition = e.clientX
-    elemWidth = elem.offsetWidth
-		console.log(startPosition)
-
-		document.body.appendChild(dragImg)
+    tasksWidth = tasksElem.offsetWidth
+	  e.dataTransfer.setDragImage(dragImg, 0, 0)
+		e.target.style.cursor = 'col-resize'
 	}
 
   const startResize = e => {
     const tasksElem = document.querySelector('#tasks')
-	  e.dataTransfer.setDragImage(dragImg, 0, 0);
-
-    tasksElem.style.width = `${elemWidth + e.clientX - startPosition}px`
+    tasksElem.style.width = `${tasksWidth + e.clientX - startPosition}px`
   }
-
-	const endResize = () => {
-		document.body.removeChild(dragImg)
-	}
 
 	return (
 		<div className={ stl.wrapper } id='tasks'>
@@ -114,7 +106,6 @@ function Tasks() {
         draggable={ true }
         onDragStart={ initResize }
         onDrag={ startResize }
-        onDragEnd={ endResize }
       />
 			<Header/>
 			<TaskList tasks={tasks}/>
