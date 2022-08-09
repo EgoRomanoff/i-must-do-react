@@ -2,13 +2,33 @@ import stl from './IMDButton.module.scss'
 import './IMDButton.scss'
 import Icons from "../../Icons/Icons"
 
-function IMDButton({ text = '', type, size}) {
+function IMDButton({ text = '', type, size, onClick }) {
+	let iconSize
+	switch (size) {
+		case 'lg':
+			iconSize = '16'
+			break
+		case 'sm':
+			iconSize = '12'
+			break
+		default:
+			iconSize = '16'
+			break
+	}
+
 	return (
-		<button className={`${ stl.btn } btn--${type} btn--${size}`}>
+		<button
+			className={`${ stl.btn } btn--${type} btn--${size}`}
+			onClick={onClick}
+		>
 			{text}
-			<Icons
-				name={ type }
-			/>
+			{
+				!(type === 'cancel' || type === 'enter') &&
+				<Icons
+					name={ type }
+					size={ iconSize }
+				/>
+			}
 		</button>
 	);
 }

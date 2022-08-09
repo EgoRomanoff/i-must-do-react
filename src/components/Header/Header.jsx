@@ -1,7 +1,7 @@
 import stl from './Header.module.scss'
 import logo from '../../img/logo.svg'
-import IMDSearch from "../UI/IMDSearch/IMDSearch";
-import IMDButton from "../UI/IMDButton/IMDButton";
+import IMDSearch from "../UI/IMDSearch/IMDSearch"
+import IMDButton from "../UI/IMDButton/IMDButton"
 
 function Header() {
 	return (

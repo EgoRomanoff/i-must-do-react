@@ -1,5 +1,4 @@
-import sprite from '../../img/sprite.svg';
-import stl from './Icons.module.scss'
+import sprite from '../../img/sprite.svg'
 
 function Icons({name, color = '#2D8D79', size = '16'}) {
 

@@ -1,6 +1,6 @@
 import stl from './App.module.scss'
-import Tasks from "./components/Tasks/Tasks";
-import TaskForm from "./components/TaskForm/TaskForm";
+import Tasks from "./components/Tasks/Tasks"
+import TaskForm from "./components/TaskForm/TaskForm"
 
 function App() {
 

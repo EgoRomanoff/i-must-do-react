@@ -1,6 +1,5 @@
 import stl from './IMDSearch.module.scss'
 import Icons from '../../Icons/Icons'
-import logo from '../../../img/logo.svg'
 
 function IMDSearch() {
 	return (

@@ -1,0 +1,36 @@
+@import 'src/scss/_vars.scss';
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 10px);
+  height: 100%;
+  margin-left: 10px;
+  padding: 5px;
+  z-index: 10;
+  background: $white;
+  border: 1px solid $green-500;
+  border-radius: $radius-primary;
+
+  &.show {
+    display: flex;
+  }
+}
+
+.text {
+  font-weight: 500;
+  flex: 1 1 auto;
+  text-align: center;
+  //font-size: .875rem;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}

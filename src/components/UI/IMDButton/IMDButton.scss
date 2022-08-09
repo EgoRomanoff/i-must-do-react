@@ -5,6 +5,10 @@
   padding: 0 15px;
   border-radius: $radius-primary;
 
+  & svg {
+    margin-left: 10px;
+  }
+
   // large Add
   &.btn--add {
     border-color: $green-500;
@@ -18,9 +22,14 @@
 }
 
 .btn--sm {
-  width: 34px;
-  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
   border: none;
+  font-size: .875rem;
+
   // small Complete
   &.btn--complete:hover {
     background: $c-complete;
@@ -33,9 +42,42 @@
   &.btn--inProcess:hover {
     background: $c-inProcess;
   }
-  // small delete
+  // small Delete
   &.btn--delete:hover {
     background: $c-delete;
+  }
+  // small Enter & Cancel button
+  &.btn--enter, &.btn--cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    width: 60px;
+    border: 1px solid;
+    border-radius: $radius-primary;
+
+    &:hover {
+      color: $white;
+    }
+  }
+  // small Enter
+  &.btn--enter {
+    border-color: $c-enter;
+    color: $c-enter;
+
+    &:hover {
+      background: $c-enter;
+    }
+  }
+  // small Cancel
+  &.btn--cancel {
+    border-color: $c-cancel;
+    color: $c-cancel;
+
+    &:hover {
+      background: $c-cancel;
+    }
   }
 }
 
