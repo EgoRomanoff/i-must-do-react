@@ -8,6 +8,7 @@
   align-content: space-between;
   min-height: 70px;
   padding: 15px 15px 15px 46px;
+  user-select: none;
 }
 
 .name, .description {
@@ -63,4 +64,22 @@
 
 .time {
 
+}
+
+.btns {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  flex-wrap: wrap;
+  width: 70px;
+  height: 100%;
+  border: 1px solid $green-500;
+  border-radius: 4px;
+  background: $white;
+  overflow: hidden;
+}
+
+.item:hover .btns {
+  display: flex;
 }

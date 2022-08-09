@@ -7,9 +7,12 @@
   align-items: center;
   font-size: 1rem;
   border: 1px solid;
-  border-radius: $radius-primary;
   background: $white;
   cursor: pointer;
+
+  &:hover {
+    color: $white;
+  }
 
   & svg {
     margin-left: 10px;

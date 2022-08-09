@@ -1,10 +1,21 @@
 import stl from './TaskItem.module.scss'
 import './TaskItem.scss'
+import IMDButton from "../UI/IMDButton/IMDButton";
 
 function TaskItem({name, description, date, time, status}) {
 
+	// const setActive = e => {
+	// 	e.preventDefault()
+	// 	e.stopPropagation()
+	// 	console.log(e.target)
+	// 	e.target.classList.add('active')
+	// }
+
 	return (
-		<li className={`${ stl.item } task--${status}`}>
+		<li
+			className={`${ stl.item } task--${status}`}
+			// onClick={ setActive }
+		>
 			<span className={ stl.name }>{name}</span>
 			{description ? <p className={ stl.description }>{description}</p> : null}
 			{
@@ -15,6 +26,24 @@ function TaskItem({name, description, date, time, status}) {
 					</p> :
 					null
 			}
+			<div className={ stl.btns }>
+				<IMDButton
+					type='complete'
+					size='sm'
+				/>
+				<IMDButton
+					type='edit'
+					size='sm'
+				/>
+				<IMDButton
+					type='inProcess'
+					size='sm'
+				/>
+				<IMDButton
+					type='delete'
+					size='sm'
+				/>
+			</div>
 		</li>
 	);
 }
