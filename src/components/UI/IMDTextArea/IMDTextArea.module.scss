@@ -1,0 +1,50 @@
+@import "src/scss/_vars.scss";
+
+.wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+
+  &.editable:before {
+    position: absolute;
+    content: '';
+    bottom: 6px;
+    right: 6px;
+    width: 12px;
+    height: 12px;
+    background-image: url('../../../img/edit__icon.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .7;
+  }
+}
+
+.input {
+  @include font($font-f-regular, 500);
+
+  outline: none;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px 10px 10px;
+  border: 1px solid transparent;
+  border-radius: $radius-primary;
+  color: $font-c-primary;
+  font-size: 1.25rem;
+  resize: none;
+
+  &.editable {
+
+    &:hover {
+      background: rgba($green-500, .2);
+    }
+
+    &:focus {
+      border-color: $green-500;
+      background: rgba($green-500, .2);
+    }
+  }
+}

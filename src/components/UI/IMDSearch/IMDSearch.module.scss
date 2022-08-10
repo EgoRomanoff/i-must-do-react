@@ -18,7 +18,19 @@
   color: $font-c-primary;
   outline: none;
   border: none;
-  padding: 0 15px;
+  padding: 0 10px 0 10px;
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    background-image: url('../../../img/cancel__icon.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
 }
 
 .btn {

@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-bottom: 10px;
+  padding: 5px 0 10px 3px;
   list-style-type: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -19,7 +19,8 @@
 
   &::-webkit-scrollbar-thumb {
     background: rgba($green-500, .3);
-    border: 1px solid $white;
+    border: 2px solid $white;
+    border-left: 3px solid $white;
     border-radius: 4px;
 
     &:hover {

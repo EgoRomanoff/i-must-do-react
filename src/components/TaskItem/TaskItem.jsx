@@ -14,10 +14,10 @@ function TaskItem({ task, setTasks }) {
 		let btnType = Array.from(e.target.classList)[1]
 		switch (btnType) {
 			case 'btn--complete':
-				setModalType('setComplete')
+				setModalType('complete')
 				break
 			case 'btn--inProcess':
-				setModalType('setInProcess')
+				setModalType('inProcess')
 				break
 			case 'btn--delete':
 				setModalType('delete')
