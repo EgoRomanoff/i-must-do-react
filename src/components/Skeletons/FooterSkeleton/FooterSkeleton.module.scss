@@ -1,0 +1,49 @@
+@import 'src/scss/_vars.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 38px;
+  margin-top: auto;
+  border-top: 2px solid $green-500;
+  padding: 10px 15px;
+}
+
+.totalCounter {
+  width: 70px;
+  height: 14px;
+  margin-right: auto;
+  background: rgba($green-500, .2);
+  border-radius: $radius-primary;
+}
+
+.taskCounter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 16px;
+  margin-left: 15px;
+  padding-left: 18px;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba($green-500, .2);
+  }
+
+  &:after {
+    position: absolute;
+    right: 0;
+    content: '';
+    width: 18px;
+    height: 16px;
+    border-radius: $radius-primary;
+    background: rgba($green-500, .2);
+  }
+}

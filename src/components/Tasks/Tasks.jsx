@@ -2,85 +2,13 @@ import stl from './Tasks.module.scss'
 import Header from "../Header/Header"
 import TaskList from "../TaskList/TaskList"
 import Footer from "../Footer/Footer"
-import {useState} from "react";
+import TaskListSkeleton from "../Skeletons/TaskListSkeleton/TaskListSkeleton"
+import FooterSkeleton from "../Skeletons/FooterSkeleton/FooterSkeleton"
+import {useRef} from "react";
 
-function Tasks() {
+function Tasks({ tasks, setTasks, isLoading }) {
 
-	const [tasks, setTasks] = useState([
-			{
-				id: 1,
-				name: 'Название задачи название задачи название задачи название задачи',
-				description: 'Описание задачи описание задачи описание задачи описание задачи',
-				date: '01.05.2022',
-				time: '23:45',
-				status: 'inProcess'
-			},
-			{
-				id: 2,
-				name: 'Название задачи название задачи название задачи название задачи',
-				description: 'Описание задачи',
-				date: null,
-				time: '23:45',
-				status: 'waiting'
-			},
-			{
-				id: 3,
-				name: 'Название задачи',
-				description: 'Описание задачи описание задачи описание задачи описание задачи',
-				date: '01.05.2022',
-				time: null,
-				status: 'complete'
-			},
-			{
-				id: 4,
-				name: 'Название задачи название задачи',
-				description: null,
-				date: null,
-				time: null,
-				status: 'inProcess'
-			},
-			{
-				id: 5,
-				name: 'Название задачи название задачи название задачи название задачи',
-				description: 'Описание задачи описание задачи описание задачи описание задачи',
-				date: '01.05.2022',
-				time: '23:45',
-				status: 'inProcess'
-			},
-			{
-				id: 6,
-				name: 'Название задачи название задачи название задачи название задачи',
-				description: 'Описание задачи',
-				date: null,
-				time: '23:45',
-				status: 'complete'
-			},
-			{
-				id: 7,
-				name: 'Название задачи',
-				description: 'Описание задачи описание задачи описание задачи описание задачи',
-				date: '01.05.2022',
-				time: null,
-				status: 'complete'
-			},
-			{
-				id: 8,
-				name: 'Название задачи название задачи',
-				description: null,
-				date: null,
-				time: null,
-				status: 'inProcess'
-			},
-			{
-				id: 9,
-				name: 'Название задачи название задачи название задачи название задачи',
-				description: 'Описание задачи описание задачи описание задачи описание задачи',
-				date: '01.05.2022',
-				time: '23:45',
-				status: 'waiting'
-			}
-		]
-	)
+	const tasksElem = useRef(null) // ref on this element (use in function fo resizing)
 
 	// creating an element for changing drag effect picture
 	const dragImg = document.createElement('canvas');
@@ -90,39 +18,47 @@ function Tasks() {
 
   let startPosition, tasksWidth
 
-	const initResize = e => {
+	// get coordinates and width values at the start of resizing
+	const startResize = e => {
 		e.stopPropagation()
-    const tasksElem = document.querySelector('#tasks')
-    startPosition = e.clientX
-    tasksWidth = tasksElem.offsetWidth
-	  e.dataTransfer.setDragImage(dragImg, 0, 0)
+    startPosition = e.clientX // X of resizer element
+    tasksWidth = tasksElem.current.offsetWidth // current width of Tasks element
+	  e.dataTransfer.setDragImage(dragImg, 0, 0) // set drag image
 		e.target.style.cursor = 'col-resize'
 	}
 
-  const startResize = e => {
-    const tasksElem = document.querySelector('#tasks')
-    tasksElem.style.width = `${tasksWidth + e.clientX - startPosition}px`
+	// change width when border is moving
+  const resize = e => {
+    tasksElem.current.style.width = `${tasksWidth + e.clientX - startPosition}px`
   }
 
 	return (
-		<div className={ stl.wrapper } id='tasks'>
+		<div className={ stl.wrapper } ref={ tasksElem }>
       <div
         className={ stl.resizer }
         draggable={ true }
-        onDragStart={ initResize }
-        onDrag={ startResize }
+        onDragStart={ startResize }
+        onDrag={ resize }
       />
 			<Header/>
-			<TaskList
-				tasks={ tasks }
-				setTasks={ setTasks }
-			/>
-			<Footer
-				total={ tasks.length }
-				waiting={ tasks.filter(task => task.status === 'waiting').length }
-				inProcess={ tasks.filter(task => task.status === 'inProcess').length }
-				complete={ tasks.filter(task => task.status === 'complete').length }
-			/>
+			{
+				isLoading ?
+					<TaskListSkeleton/> :
+					<TaskList
+						tasks={ tasks }
+						setTasks={ setTasks }
+					/>
+			}
+			{
+				isLoading ?
+					<FooterSkeleton/> :
+					<Footer
+						total={ tasks.length }
+						waiting={ tasks.filter(task => task.status === 'waiting').length }
+						inProcess={ tasks.filter(task => task.status === 'inProcess').length }
+						complete={ tasks.filter(task => task.status === 'complete').length }
+					/>
+			}
 		</div>
 	)
 }

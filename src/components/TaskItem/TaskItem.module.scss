@@ -44,22 +44,21 @@
   padding-top: 5px;
   color: $font-c-secondary;
   font-size: .875rem;
-  height: 24px;
 }
 
 .datetime {
-  @include font($font-f-regular, 400);
+  @include font($font-f-regular, 500);
 
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  align-self: center;
+  align-self: baseline;
   justify-self: end;
   display: flex;
   padding-left: 15px;
   white-space: nowrap;
-  font-size: .875rem;
+  font-size: .75rem;
 }
 
 .date {

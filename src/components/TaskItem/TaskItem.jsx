@@ -1,8 +1,8 @@
 import stl from './TaskItem.module.scss'
 import './TaskItem.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
-import TaskModal from "../TaskModal/TaskModal";
-import {useState} from "react";
+import TaskModal from "../TaskModal/TaskModal"
+import {useState} from "react"
 
 function TaskItem({ task, setTasks }) {
 
