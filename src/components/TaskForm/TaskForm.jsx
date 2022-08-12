@@ -6,11 +6,12 @@ function TaskForm({ task }) {
 	return (
 		<form className={ stl.wrapper } id='task-form'>
 			<IMDTextArea/>
-			<div className={ stl.statusWrapper }>
-				<StatusRadio status='waiting'/>
-				{/*<StatusRadio status='inProcess'/>*/}
-				{/*<StatusRadio status='complete'/>*/}
-			</div>
+			{/*<div className={ stl.statusWrapper }>*/}
+			{/*	<StatusRadio status='waiting'/>*/}
+			{/*	/!*<StatusRadio status='inProcess'/>*!/*/}
+			{/*	/!*<StatusRadio status='complete'/>*!/*/}
+			{/*</div>*/}
+			<StatusRadio taskStatus='waiting'/>
 		</form>
 	);
 }

@@ -1,6 +1,10 @@
 @import 'src/scss/_vars.scss';
 
 .wrapper {
+  display: flex;
+}
+
+.input {
   position: relative;
 }
 
@@ -26,40 +30,40 @@
   clip: rect(0 0 0 0);
 }
 
-.wrapper.waiting {
+.input.waiting {
 
-  & .label {
+  .label {
     border-color: $c-waiting;
     color: $c-waiting;
   }
 
-  & > .radio:checked + .label {
+  .radio:checked + .label {
     background: $c-waiting;
     color: $white;
   }
 }
 
-.wrapper.inProcess {
+.input.inProcess {
 
-  & .label {
+  .label {
     border-color: $c-inProcess;
     color: $c-inProcess;
   }
 
-  & > .radio:checked + .label {
+  .radio:checked + .label {
     background: $c-inProcess;
     color: $white;
   }
 }
 
-.wrapper.complete {
+.input.complete {
 
-  & .label {
+  .label {
     border-color: $c-complete;
     color: $c-complete;
   }
 
-  & > .radio:checked + .label {
+  .radio:checked + .label {
     background: $c-complete;
     color: $white;
   }
