@@ -2,24 +2,38 @@
 
 .wrapper {
   position: relative;
-
   display: flex;
   align-items: center;
+  margin-bottom: 25px;
   width: 100%;
   height: 90px;
 
-  &.editable:before {
-    position: absolute;
-    content: '';
-    bottom: 6px;
-    right: 6px;
-    width: 12px;
-    height: 12px;
-    background-image: url('../../../img/edit__icon.svg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: .7;
+  &.editable {
+
+    & > .input {
+      &:hover {
+        background: $green-100;
+      }
+
+      &:focus {
+        border-color: $green-500;
+        background: $green-100;
+      }
+    }
+
+    &:before {
+      position: absolute;
+      content: '';
+      bottom: 6px;
+      right: 6px;
+      width: 12px;
+      height: 12px;
+      background-image: url('../../../img/edit__icon.svg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: .7;
+    }
   }
 }
 
@@ -35,16 +49,4 @@
   color: $font-c-primary;
   font-size: 1.25rem;
   resize: none;
-
-  &.editable {
-
-    &:hover {
-      background: rgba($green-500, .2);
-    }
-
-    &:focus {
-      border-color: $green-500;
-      background: rgba($green-500, .2);
-    }
-  }
 }

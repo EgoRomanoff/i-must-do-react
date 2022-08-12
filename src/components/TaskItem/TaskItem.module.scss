@@ -1,19 +1,28 @@
 @import 'src/scss/_vars.scss';
 
-.item {
+.wrapper {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 100%) minmax(0, auto);
-  grid-template-rows: minmax(0, 100%) minmax(0, auto);
-  align-content: space-between;
-  min-height: 70px;
-  padding: 15px 15px 15px 46px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
+  padding: 10px 15px 10px 44px;
   border-radius: $radius-primary;
   user-select: none;
   overflow: hidden;
 
   &:hover {
-    background: rgba($green-500, .2);
+    background: rgba($green-500, .1);
+  }
+
+  &:before {
+    position: absolute;
+    top: calc(50% - 16px / 2);
+    left: 14px;
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
   }
 }
 
@@ -26,45 +35,28 @@
 
 .name {
   @include font($font-f-regular, 700);
-
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  align-self: center;
 }
 
 .description {
-  @include font($font-f-regular, 400);
+  @include font($font-f-regular, 500);
 
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  padding-top: 5px;
+  margin-top: 6px;
   color: $font-c-secondary;
   font-size: .875rem;
 }
 
 .datetime {
-  @include font($font-f-regular, 500);
+  @include font($font-f-regular, 400);
 
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  align-self: baseline;
-  justify-self: end;
+  margin-top: 6px;
   display: flex;
-  padding-left: 15px;
   white-space: nowrap;
-  font-size: .75rem;
+  font-size: .875rem;
 }
 
 .date {
-  & + .time:before {
-    content: '-';
-    padding: 0 2px;
+  & + .time {
+    margin-left: 12px;
   }
 }
 
@@ -78,6 +70,18 @@
   overflow: hidden;
 }
 
-.item:hover .btns {
+.wrapper:hover .btns {
   display: flex;
+}
+
+.taskWaiting:before {
+  background: $c-waiting;
+}
+
+.taskInProcess:before {
+  background: $c-inProcess;
+}
+
+.taskComplete:before {
+  background: $c-complete;
 }

@@ -14,7 +14,7 @@
   width: 70px;
   height: 14px;
   margin-right: auto;
-  background: rgba($green-500, .2);
+  background: $green-100;
   border-radius: $radius-primary;
 }
 
@@ -34,7 +34,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: rgba($green-500, .2);
+    background: $green-100;
   }
 
   &:after {
@@ -44,6 +44,6 @@
     width: 18px;
     height: 16px;
     border-radius: $radius-primary;
-    background: rgba($green-500, .2);
+    background: $green-100;
   }
 }

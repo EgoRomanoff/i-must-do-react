@@ -14,23 +14,26 @@ function TaskModal({ isVisible, setModalState, text, callback }) {
 			callback: null
 		})
 		// and remove click listener
-		// document.removeEventListener('click', isModalClickHandler)
+		document.removeEventListener('click', isModalClickHandler)
 	}
 
-	// // handler for checking clicks outside the modal
-	// const isModalClickHandler = e => {
-	// 	// console.log(e.target)
-	// 	console.log(thisModal.current)
-	// 	!thisModal.current.contains(e.target) && closeModal()
-	// }
+	// handler for checking clicks outside the modal
+	const isModalClickHandler = e => {
+		// console.log(thisModal.current)
+		!thisModal.current.contains(e.target) && closeModal()
+	}
 
-	// if (isVisible === true) {
-	// 	document.addEventListener('click', isModalClickHandler)
-	// }
+	if (isVisible === true) {
+		setTimeout(() => {
+			document.addEventListener('click', isModalClickHandler)
+		}, 0)
+	}
 
 	return (
 		<div className={ stl.wrapper } ref={ thisModal }>
-			<span className={ stl.text }>{ text }</span>
+			<span className={ stl.text }>
+				{ text }
+			</span>
 			<div className={ stl.btns }>
 				<IMDButton
 					text='Да'
@@ -52,4 +55,4 @@ function TaskModal({ isVisible, setModalState, text, callback }) {
 	)
 }
 
-export default TaskModal;
+export default TaskModal

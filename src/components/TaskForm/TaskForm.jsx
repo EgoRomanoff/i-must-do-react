@@ -1,12 +1,18 @@
 import stl from './TaskForm.module.scss'
-import IMDTextArea from "../UI/IMDTextArea/IMDTextArea";
+import IMDTextArea from "../UI/IMDTextArea/IMDTextArea"
+import StatusRadio from "../StatusRadio/StatusRadio";
 
-function TaskForm() {
+function TaskForm({ task }) {
 	return (
-		<div className={ stl.wrapper } id='task-form'>
+		<form className={ stl.wrapper } id='task-form'>
 			<IMDTextArea/>
-		</div>
+			<div className={ stl.statusWrapper }>
+				<StatusRadio status='waiting'/>
+				{/*<StatusRadio status='inProcess'/>*/}
+				{/*<StatusRadio status='complete'/>*/}
+			</div>
+		</form>
 	);
 }
 
-export default TaskForm;
+export default TaskForm

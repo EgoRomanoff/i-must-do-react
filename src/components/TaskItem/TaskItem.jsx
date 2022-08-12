@@ -1,10 +1,23 @@
 import stl from './TaskItem.module.scss'
-import './TaskItem.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
-import {useRef, useState} from "react"
+import {useState} from "react"
 
 function TaskItem({ task, setTasks }) {
+
+	let elementClasses = [stl.wrapper] // get CSS-class 'wrapper' and set in array
+
+	switch (task.status) { // check task status and add needed CSS-class
+		case 'waiting':
+			elementClasses.push(stl.taskWaiting)
+			break
+		case 'inProcess':
+			elementClasses.push(stl.taskInProcess)
+			break
+		case 'complete':
+			elementClasses.push(stl.taskComplete)
+			break
+	}
 
 	// state of modal window
 	const [modalState, setModalState] = useState({
@@ -37,16 +50,14 @@ function TaskItem({ task, setTasks }) {
 
 	// open modal and set parameters
 	const showModal = (btnType) => {
-		console.log(modalState.isVisible)
-		// e.stopPropagation()
+		// read 'btnType' and set needed ModalState
 		switch (btnType) {
 			case 'complete':
 				setModalState({
 					isVisible: true,
-					question: 'Пометить задачу выполненной?',
-					callback: () => changeStatus('complete')
+					question: 'Пометить задачу выполненной?', // text in Modal
+					callback: () => changeStatus('complete') // callback for enter button
 				})
-				console.log(modalState.isVisible)
 				break
 			case 'inProcess':
 				setModalState({
@@ -67,24 +78,36 @@ function TaskItem({ task, setTasks }) {
 		}
 	}
 
+	const convertDate = (date) => {
+		const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/
+		return date.replace(dateRegExp, '$3.$2.$1')
+			// dateFromItem = /(\d{2})\.(\d{2})\.(\d{4})/
+		// return dateFromInput.test(dateValue)
+		// 	? dateValue.replace(dateFromInput, '$3.$2.$1')
+		// 	: dateValue.replace(dateFromItem, '$3-$2-$1')
+	}
+
 	return (
 		<li
 			id={ task.id }
-			className={`${ stl.item } task--${task.status}`}
+			className={elementClasses.join(' ')} // put CSS-classes array as string with " " divider
 		>
+
 			<span className={ stl.name }>{ task.name }</span>
+
 			{
 				task.description ?
 				<p className={ stl.description }>{ task.description }</p> :
 				null
 			}
+
 			{
 				(task.date !== null || task.time !== null) ?
 					<p className={ stl.datetime }>
 						{
 							task.date ?
-							<span className={ stl.date }>{ task.date }</span> :
-							null
+								<span className={ stl.date }>{ convertDate(task.date) }</span> :
+								null
 						}
 						{
 							task.time ?
@@ -94,27 +117,34 @@ function TaskItem({ task, setTasks }) {
 					</p> :
 					null
 			}
+
 			<div className={ stl.btns }>
+
 				<IMDButton
 					type='inProcess'
 					size='sm'
 					onClick={ () => showModal('inProcess') }
 				/>
+
 				<IMDButton
 					type='complete'
 					size='sm'
 					onClick={ () => showModal('complete') }
 				/>
+
 				<IMDButton
 					type='edit'
 					size='sm'
 				/>
+
 				<IMDButton
 					type='delete'
 					size='sm'
 					onClick={ () => showModal('delete') }
 				/>
+
 			</div>
+
 			{
 				modalState.isVisible ?
 					<TaskModal

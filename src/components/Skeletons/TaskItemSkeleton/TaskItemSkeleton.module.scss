@@ -2,13 +2,12 @@
 
 .item {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 140px;
-  grid-template-rows: 20px 15px;
-  grid-gap: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
-  height: 70px;
-  padding: 15px 15px 15px 46px;
+  height: 80px;
+  padding: 10px 15px 10px 44px;
   border-radius: $radius-primary;
   user-select: none;
   overflow: hidden;
@@ -16,39 +15,33 @@
   &:before {
     position: absolute;
     top: calc(50% - 16px / 2);
-    left: 15px;
+    left: 14px;
     content: '';
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: rgba($green-500, .2);
+    background: rgba($green-500, .15);
   }
 }
 
 .name, .description, .datetime {
-  width: 100%;
-  height: 100%;
   border-radius: $radius-primary;
-  background: rgba($green-500, .2);
+  background: rgba($green-500, .15);
+}
+
+.name, .description {
+  width: 100%;
+}
+
+.description, .datetime {
+  height: 14px;
+  margin-top: 6px;
 }
 
 .name {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-
-.description {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  height: 16px;
 }
 
 .datetime {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  width: 120px;
 }

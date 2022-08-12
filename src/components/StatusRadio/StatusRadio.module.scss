@@ -1,0 +1,67 @@
+@import 'src/scss/_vars.scss';
+
+.wrapper {
+  position: relative;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 28px;
+  border: 1px solid;
+  border-radius: $radius-primary;
+  background: $white;
+  font-weight: 500;
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.wrapper.waiting {
+
+  & .label {
+    border-color: $c-waiting;
+    color: $c-waiting;
+  }
+
+  & > .radio:checked + .label {
+    background: $c-waiting;
+    color: $white;
+  }
+}
+
+.wrapper.inProcess {
+
+  & .label {
+    border-color: $c-inProcess;
+    color: $c-inProcess;
+  }
+
+  & > .radio:checked + .label {
+    background: $c-inProcess;
+    color: $white;
+  }
+}
+
+.wrapper.complete {
+
+  & .label {
+    border-color: $c-complete;
+    color: $c-complete;
+  }
+
+  & > .radio:checked + .label {
+    background: $c-complete;
+    color: $white;
+  }
+}
+
