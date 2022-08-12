@@ -2,30 +2,69 @@ import stl from './TaskItem.module.scss'
 import './TaskItem.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
-import {useState} from "react"
+import {useRef, useState} from "react"
 
 function TaskItem({ task, setTasks }) {
 
-	const [modalVisible, setModalVisible] = useState(false)
-	const [modalType, setModalType] = useState(null)
+	// state of modal window
+	const [modalState, setModalState] = useState({
+		isVisible: false,
+		question: null,
+		callback: null
+	})
 
-	const showModal = e => {
-		e.stopPropagation()
-		let btnType = Array.from(e.target.classList)[1]
+	// callback for changing status of current task
+	const changeStatus = (status) => {
+		setTasks(tasks => {
+			// loop over the tasks
+			return tasks.map(taskItem => {
+				//find the provided id and updates status
+				//else returns unmodified item
+				return taskItem.id === task.id ?
+					{...taskItem, status: status} :
+					taskItem
+			})
+		})
+	}
+
+	// callback for deleting current task
+	const deleteTask = () => {
+		// returns an array without deleted task
+		setTasks(tasks => {
+			return tasks.filter(taskItem => taskItem.id !== task.id)
+		})
+	}
+
+	// open modal and set parameters
+	const showModal = (btnType) => {
+		console.log(modalState.isVisible)
+		// e.stopPropagation()
 		switch (btnType) {
-			case 'btn--complete':
-				setModalType('complete')
+			case 'complete':
+				setModalState({
+					isVisible: true,
+					question: 'Пометить задачу выполненной?',
+					callback: () => changeStatus('complete')
+				})
+				console.log(modalState.isVisible)
 				break
-			case 'btn--inProcess':
-				setModalType('inProcess')
+			case 'inProcess':
+				setModalState({
+					isVisible: true,
+					question: 'Начать выполнение задачи?',
+					callback: () => changeStatus('inProcess')
+				})
 				break
-			case 'btn--delete':
-				setModalType('delete')
+			case 'delete':
+				setModalState({
+					isVisible: true,
+					question: 'Удалить задачу?',
+					callback: deleteTask
+				})
 				break
 			default:
-				console.log(btnType)
+				break
 		}
-		setModalVisible(true)
 	}
 
 	return (
@@ -59,12 +98,12 @@ function TaskItem({ task, setTasks }) {
 				<IMDButton
 					type='inProcess'
 					size='sm'
-					onClick={ showModal }
+					onClick={ () => showModal('inProcess') }
 				/>
 				<IMDButton
 					type='complete'
 					size='sm'
-					onClick={ showModal }
+					onClick={ () => showModal('complete') }
 				/>
 				<IMDButton
 					type='edit'
@@ -73,16 +112,19 @@ function TaskItem({ task, setTasks }) {
 				<IMDButton
 					type='delete'
 					size='sm'
-					onClick={ showModal }
+					onClick={ () => showModal('delete') }
 				/>
 			</div>
-			<TaskModal
-				setTasks={ setTasks }
-				taskID={ task.id }
-				modalType={ modalType }
-				modalVisible={ modalVisible }
-				setModalVisible={ setModalVisible }
-			/>
+			{
+				modalState.isVisible ?
+					<TaskModal
+						isVisible={ modalState.isVisible }
+						setModalState={ setModalState }
+						text={ modalState.question }
+						callback={ modalState.callback }
+					/> :
+					null
+			}
 		</li>
 	);
 }

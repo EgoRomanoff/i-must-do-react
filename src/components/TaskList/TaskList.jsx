@@ -3,8 +3,8 @@ import TaskItem from "../TaskItem/TaskItem"
 
 function TaskList({ tasks, setTasks }) {
 
-	const isTasksEmpty = arr => {
-		if (arr.length) {
+	const isTasksEmpty = () => {
+		if (tasks.length) {
 			return tasks.map(task => {
 				return (
 					<TaskItem
@@ -21,7 +21,7 @@ function TaskList({ tasks, setTasks }) {
 
 	return (
 		<ul className={ stl.wrapper }>
-			{isTasksEmpty(tasks)}
+			{ isTasksEmpty() }
 		</ul>
 	)
 }

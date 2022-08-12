@@ -29,6 +29,8 @@
   height: 28px;
   border: none;
   font-size: .875rem;
+  background: rgba($white, .6);
+  backdrop-filter: blur(1px);
 
   // small Complete
   &.btn--complete:hover {

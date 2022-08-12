@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -14,10 +14,6 @@
   background: $white;
   border: 1px solid $green-500;
   border-radius: $radius-primary;
-
-  &.show {
-    display: flex;
-  }
 }
 
 .text {
