@@ -1,7 +1,7 @@
 import stl from './TaskList.module.scss'
 import TaskItem from "../TaskItem/TaskItem"
 
-function TaskList({ tasks, setTasks }) {
+function TaskList({ tasks, setTasks, setSelectedTask }) {
 
 	const isTasksEmpty = () => {
 		if (tasks.length) {
@@ -11,6 +11,7 @@ function TaskList({ tasks, setTasks }) {
 						key={ task.id }
 						task={ task }
 						setTasks={ setTasks }
+						setSelectedTask={ setSelectedTask }
 					/>
 				)
 			})

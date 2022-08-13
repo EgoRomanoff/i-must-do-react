@@ -2,6 +2,20 @@
 
 .wrapper {
   position: relative;
+
+  &:before {
+    position: absolute;
+    top: calc(50% - 16px / 2);
+    left: 14px;
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+}
+
+.inner {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,16 +27,6 @@
 
   &:hover {
     background: rgba($green-500, .1);
-  }
-
-  &:before {
-    position: absolute;
-    top: calc(50% - 16px / 2);
-    left: 14px;
-    content: '';
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
   }
 }
 
@@ -68,6 +72,7 @@
   border-radius: $radius-primary;
   background: transparent;
   overflow: hidden;
+  z-index: 10;
 }
 
 .wrapper:hover .btns {

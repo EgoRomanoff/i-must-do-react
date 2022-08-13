@@ -1,0 +1,38 @@
+@import "src/scss/_vars.scss";
+
+.wrapper {
+  position: relative;
+  display: flex;
+  width: min-content;
+
+  & + & {
+    margin-left: 10px;
+  }
+}
+
+.input {
+  outline: none;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-bottom-color: $green-500;
+  border-top-left-radius: $radius-primary;
+  border-top-right-radius: $radius-primary;
+  color: $font-c-primary;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  resize: none;
+  overflow: hidden;
+
+  &[type="date"] {
+    font-size: inherit;
+    width: 150px;
+  }
+
+  &[type="time"] {
+    font-size: inherit;
+    width: 100px;
+  }
+}

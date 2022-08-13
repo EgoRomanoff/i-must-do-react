@@ -3,7 +3,7 @@ import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
 import {useState} from "react"
 
-function TaskItem({ task, setTasks }) {
+function TaskItem({ task, setTasks, setSelectedTask }) {
 
 	let elementClasses = [stl.wrapper] // get CSS-class 'wrapper' and set in array
 
@@ -87,36 +87,52 @@ function TaskItem({ task, setTasks }) {
 		// 	: dateValue.replace(dateFromItem, '$3-$2-$1')
 	}
 
+	const selectTask = e => {
+		e.stopPropagation()
+		setSelectedTask({
+			task: task,
+			isEdited: false
+		})
+	}
+
+	const editTask = e => {
+		setSelectedTask({
+			task: task,
+			isEdited: true
+		})
+	}
+
 	return (
 		<li
 			id={ task.id }
 			className={elementClasses.join(' ')} // put CSS-classes array as string with " " divider
 		>
+			<div className={ stl.inner } onClick={ selectTask }>
+				<span className={ stl.name }>{ task.name }</span>
 
-			<span className={ stl.name }>{ task.name }</span>
+				{
+					task.description ?
+						<p className={ stl.description }>{ task.description }</p> :
+						null
+				}
 
-			{
-				task.description ?
-				<p className={ stl.description }>{ task.description }</p> :
-				null
-			}
-
-			{
-				(task.date !== null || task.time !== null) ?
-					<p className={ stl.datetime }>
-						{
-							task.date ?
-								<span className={ stl.date }>{ convertDate(task.date) }</span> :
-								null
-						}
-						{
-							task.time ?
-								<span className={ stl.time }>{ task.time }</span> :
-								null
-						}
-					</p> :
-					null
-			}
+				{
+					(task.date !== null || task.time !== null) ?
+						<p className={ stl.datetime }>
+							{
+								task.date ?
+									<span className={ stl.date }>{ convertDate(task.date) }</span> :
+									null
+							}
+							{
+								task.time ?
+									<span className={ stl.time }>{ task.time }</span> :
+									null
+							}
+						</p> :
+						null
+				}
+			</div>
 
 			<div className={ stl.btns }>
 
@@ -135,6 +151,7 @@ function TaskItem({ task, setTasks }) {
 				<IMDButton
 					type='edit'
 					size='sm'
+					onClick={ () => editTask() }
 				/>
 
 				<IMDButton

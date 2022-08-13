@@ -7,6 +7,10 @@ function App() {
 
   const [tasks, setTasks] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedTask, setSelectedTask] = useState({
+    task: undefined,
+    isEdited: false
+  })
 
   const getTasks = async () => {
     setIsLoading(true)
@@ -41,9 +45,13 @@ function App() {
       <Tasks
         tasks={ tasks }
         setTasks={ setTasks }
+        setSelectedTask = { setSelectedTask }
         isLoading={ isLoading }
       />
-      <TaskForm/>
+      <TaskForm
+        isLoading={ isLoading }
+        selectedTask={ selectedTask }
+      />
     </div>
   );
 }

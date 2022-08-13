@@ -6,3 +6,74 @@
   flex: 1 1 auto;
   padding: 15px;
 }
+
+.descriptionTitle {
+  color: $font-c-secondary;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.name {
+  @include font($font-f-regular, 500);
+
+  font-size: 1.25rem;
+}
+
+.description {
+  @include font($font-f-regular, 400);
+
+  border-left: 2px solid $green-500;
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.datetime {
+  position: relative;
+  display: flex;
+  width: min-content;
+  margin-bottom: 25px;
+  padding-right: 40px;
+  font-size: .875rem;
+}
+
+.edited {
+
+  & input {
+
+    &:hover {
+      background: $green-100;
+    }
+
+    &:focus {
+      border-color: $green-500;
+      background: $green-100;
+    }
+  }
+
+  &:before {
+    position: absolute;
+    content: '';
+    bottom: 6px;
+    right: 6px;
+    width: 12px;
+    height: 12px;
+    background-image: url('../../img/edit__icon.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .7;
+  }
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader {
+  width: 71px;
+  height: 36px;
+}
