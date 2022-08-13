@@ -16,7 +16,7 @@ function TaskList({ tasks, setTasks, setSelectedTask }) {
 				)
 			})
 		} else {
-			return <span className={ stl.emptyMessage }>Задач нет</span>
+			return <span className={ stl.empty }>Задач нет</span>
 		}
 	}
 

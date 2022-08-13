@@ -2,6 +2,12 @@
 
 .wrapper {
   position: relative;
+  border-radius: $radius-primary;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba($green-500, .1);
+  }
 
   &:before {
     position: absolute;
@@ -21,13 +27,7 @@
   justify-content: center;
   height: 80px;
   padding: 10px 15px 10px 44px;
-  border-radius: $radius-primary;
   user-select: none;
-  overflow: hidden;
-
-  &:hover {
-    background: rgba($green-500, .1);
-  }
 }
 
 .name, .description {
