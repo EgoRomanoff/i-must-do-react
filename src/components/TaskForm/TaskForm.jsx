@@ -3,8 +3,9 @@ import IMDTextArea from "../UI/IMDTextArea/IMDTextArea"
 import StatusRadio from "../StatusRadio/StatusRadio"
 import IMDInput from "../UI/IMDInput/IMDInput"
 import {useEffect, useState} from "react"
+import IMDButton from "../UI/IMDButton/IMDButton";
 
-function TaskForm({ isLoading, selectedTask }) {
+function TaskForm({ isLoading, selectedTask, editCallback, deleteCallback }) {
 
 	const [taskData, setTaskData] = useState(selectedTask)
 
@@ -58,6 +59,20 @@ function TaskForm({ isLoading, selectedTask }) {
 									taskDataType='time'
 									data={ taskData.task.time || '' }
 									isEdited={ taskData.isEdited }
+								/>
+							</div>
+							<div className={ stl.btns }>
+								<IMDButton
+									text='Редактировать'
+									type='edit'
+									size='lg'
+									onClick={ () => editCallback() }
+								/>
+								<IMDButton
+									text='Удалить'
+									type='delete'
+									size='lg'
+									onClick={ () => deleteCallback() }
 								/>
 							</div>
 						</> :

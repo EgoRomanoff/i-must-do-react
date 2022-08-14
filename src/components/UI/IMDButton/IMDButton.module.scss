@@ -31,14 +31,59 @@
   & svg {
     margin-left: 10px;
   }
+  // white svg for all hover large buttons
+  &.btnAdd,
+  &.btnComplete,
+  &.btnEdit,
+  &.btnInProcess,
+  &.btnDelete,
+  &.btnEnter,
+  &.btnCancel {
+
+    &:hover svg {
+      fill: $white;
+    }
+  }
 
   // large Add
   &.btnAdd {
     border-color: $green-500;
     color: $green-500;
 
+    & svg {
+      fill: $c-add;
+    }
+
     &:hover {
       background: $green-500;
+      color: $white;
+    }
+  }
+  // large Edit
+  &.btnEdit {
+    border-color: $c-edit;
+    color: $c-edit;
+
+    & svg {
+      fill: $c-edit;
+    }
+
+    &:hover {
+      background: $c-edit;
+      color: $white;
+    }
+  }
+  // large Delete
+  &.btnDelete {
+    border-color: $c-delete;
+    color: $c-delete;
+
+    & svg {
+      fill: $c-delete;
+    }
+
+    &:hover {
+      background: $c-delete;
       color: $white;
     }
   }

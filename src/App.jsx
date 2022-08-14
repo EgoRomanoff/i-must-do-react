@@ -40,6 +40,42 @@ function App() {
     getTasks()
   }, [])
 
+  // callback for editing current task
+  const editTask = (taskID) => {
+    if (taskID) { // if the id of the required task is passed
+      // set new value of state with current task
+      setSelectedTask({
+        // filter required task from tasks array by the passed id
+        task: tasks.filter(task => task.id === taskID)[0],
+        isEdited: true
+      })
+    } else {
+      // else set only "isEdited" param
+      setSelectedTask(prevState => {
+        return {...prevState, isEdited: true}
+      })
+    }
+  }
+
+  // callback for deleting current task
+  const deleteTask = (taskID) => {
+    // return an array without deleted task
+    if (taskID) { // if the id of the required task is passed
+      setTasks(tasks => { // filter tasks by the passed id
+        return tasks.filter(task => task.id !== taskID)
+      })
+    } else {
+      setTasks(tasks => { // filter tasks by task id in selectedTask
+        return tasks.filter(task => task.id !== selectedTask.task.id)
+      })
+    }
+    // set default state to selectedTask
+    setSelectedTask({
+      task: undefined,
+      isEdited: false
+    })
+  }
+
   return (
     <div className={ stl.wrapper }>
       <Tasks
@@ -47,10 +83,14 @@ function App() {
         setTasks={ setTasks }
         setSelectedTask = { setSelectedTask }
         isLoading={ isLoading }
+        editCallback={ editTask }
+        deleteCallback={ deleteTask }
       />
       <TaskForm
         isLoading={ isLoading }
         selectedTask={ selectedTask }
+        editCallback={ editTask }
+        deleteCallback={ deleteTask }
       />
     </div>
   );

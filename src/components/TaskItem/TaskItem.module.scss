@@ -90,3 +90,7 @@
 .taskComplete:before {
   background: $c-complete;
 }
+
+.selected {
+  background: rgba($green-500, .1);
+}

@@ -3,7 +3,7 @@ import Icons from "../../Icons/Icons"
 
 function IMDButton({ text = '', type, size, onClick }) {
 
-	let iconSize
+	let iconSize, iconColor
 	const elemClasses = [stl.btn] // get necessary CSS-classes and set in array
 
 	// check size props
@@ -55,6 +55,7 @@ function IMDButton({ text = '', type, size, onClick }) {
 			// Turn array into string and set CSS-classes
 			className={ elemClasses.join(' ') }
 			onClick={ onClick }
+			type='button'
 		>
 			{text}
 			{

@@ -4,7 +4,7 @@ import TaskModal from "../TaskModal/TaskModal"
 import {useState} from "react"
 import TaskItemData from "../TaskItemData/TaskItemData"
 
-function TaskItem({ task, setTasks, setSelectedTask }) {
+function TaskItem({ task, setTasks, setSelectedTask, editCallback, deleteCallback }) {
 
 	let elemClasses = [stl.wrapper] // get necessary CSS-classes and set in array
 
@@ -41,14 +41,6 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 		})
 	}
 
-	// callback for deleting current task
-	const deleteTask = () => {
-		// returns an array without deleted task
-		setTasks(tasks => {
-			return tasks.filter(taskItem => taskItem.id !== task.id)
-		})
-	}
-
 	// open modal and set parameters
 	const showModal = (btnType) => {
 		// read 'btnType' and set needed ModalState
@@ -71,7 +63,7 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 				setModalState({
 					isVisible: true,
 					question: 'Удалить задачу?',
-					callback: deleteTask
+					callback: () => deleteCallback(task.id)
 				})
 				break
 			default:
@@ -94,13 +86,7 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 			task: task,
 			isEdited: false
 		})
-	}
-
-	const editTask = e => {
-		setSelectedTask({
-			task: task,
-			isEdited: true
-		})
+		// e.currentTarget.parentNode.classList.toggle(`${stl.selected}`)
 	}
 
 	return (
@@ -130,7 +116,7 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 									<TaskItemData
 										className={ stl.date }
 										type='date'
-										data={ task.date }
+										data={ convertDate(task.date) }
 									/> :
 									null
 							}
@@ -165,7 +151,7 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 				<IMDButton
 					type='edit'
 					size='sm'
-					onClick={ () => editTask() }
+					onClick={ () => editCallback(task.id) }
 				/>
 
 				<IMDButton
@@ -190,4 +176,4 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 	)
 }
 
-export default TaskItem;
+export default TaskItem

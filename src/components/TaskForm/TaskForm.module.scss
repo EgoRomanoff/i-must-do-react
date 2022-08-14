@@ -7,12 +7,6 @@
   padding: 15px;
 }
 
-.descriptionTitle {
-  color: $font-c-secondary;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
 .name {
   @include font($font-f-regular, 500);
 
@@ -21,8 +15,9 @@
 }
 
 .description {
-  @include font($font-f-regular, 400);
+  @include font($font-f-regular, 500);
 
+  color: $font-c-secondary;
   font-size: 1rem;
   margin: 10px 0;
 }
@@ -35,6 +30,15 @@
   margin-left: 10px;
   padding-right: 40px;
   font-size: .875rem;
+}
+
+.btns {
+  display: flex;
+  margin-left: 10px;
+  // add gap by left margin between all elements in this div
+  & * + * {
+    margin-left: 10px;
+  }
 }
 
 .edited {
