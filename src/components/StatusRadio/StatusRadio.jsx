@@ -18,7 +18,7 @@ function StatusRadio({ data, isEdited }) {
 			<div className={ `${ stl.input } ${ stl.waiting }` }>
 				<input
 					type="radio"
-					name='taskStatus'
+					name='status'
 					value='waiting'
 					id='radio-waiting'
 					className={ stl.radio }
@@ -33,7 +33,7 @@ function StatusRadio({ data, isEdited }) {
 			<div className={ `${ stl.input } ${ stl.inProcess }` }>
 				<input
 					type="radio"
-					name='taskStatus'
+					name='status'
 					value='inProcess'
 					id='radio-inProcess'
 					className={ stl.radio }
@@ -48,7 +48,7 @@ function StatusRadio({ data, isEdited }) {
 			<div className={ `${ stl.input } ${ stl.complete }` }>
 				<input
 					type="radio"
-					name='taskStatus'
+					name='status'
 					value='complete'
 					id='radio-complete'
 					className={ stl.radio }

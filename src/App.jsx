@@ -11,6 +11,7 @@ function App() {
     task: undefined,
     isEdited: false
   })
+  const [editedTaskPrevData, setEditedTaskPrevData] = useState(undefined)
 
   const getTasks = async () => {
     setIsLoading(true)
@@ -36,12 +37,10 @@ function App() {
   }
 
   // ~ componentDidMount
-  useEffect(() => {
-    getTasks()
-  }, [])
+  useEffect(() => {getTasks()}, [])
 
   // callback for editing current task
-  const editTask = (taskID) => {
+  const editTask = (taskData, taskID) => {
     if (taskID) { // if the id of the required task is passed
       // set new value of state with current task
       setSelectedTask({
@@ -55,6 +54,7 @@ function App() {
         return {...prevState, isEdited: true}
       })
     }
+    setEditedTaskPrevData(taskData)
   }
 
   // callback for deleting current task
@@ -88,7 +88,11 @@ function App() {
       />
       <TaskForm
         isLoading={ isLoading }
+        setTasks={ setTasks }
         selectedTask={ selectedTask }
+        setSelectedTask={ setSelectedTask }
+        editedTaskPrevData={ editedTaskPrevData }
+        setEditedTaskPrevData={ setEditedTaskPrevData }
         editCallback={ editTask }
         deleteCallback={ deleteTask }
       />

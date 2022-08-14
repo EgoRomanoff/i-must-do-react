@@ -31,6 +31,7 @@ function IMDInput({ taskDataType, data, isEdited }) {
 				readOnly={ !isEdited }
 				value={ value }
 				onChange={ onChangeHandler }
+				name={ taskDataType }
 			/>
 		</div>
 	)

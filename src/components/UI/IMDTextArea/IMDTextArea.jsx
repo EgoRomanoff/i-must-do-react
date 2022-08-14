@@ -46,6 +46,7 @@ function IMDTextArea({ className, taskDataType, data, isEdited }) {
 				onChange={ onChangeHandler }
 				rows='1'
 				placeholder={ placeholder }
+				name={ taskDataType }
 			/>
 		</div>
 	)

@@ -2,19 +2,71 @@ import stl from './TaskForm.module.scss'
 import IMDTextArea from "../UI/IMDTextArea/IMDTextArea"
 import StatusRadio from "../StatusRadio/StatusRadio"
 import IMDInput from "../UI/IMDInput/IMDInput"
-import {useEffect, useState} from "react"
-import IMDButton from "../UI/IMDButton/IMDButton";
+import {useEffect, useRef, useState} from "react"
+import IMDButton from "../UI/IMDButton/IMDButton"
 
-function TaskForm({ isLoading, selectedTask, editCallback, deleteCallback }) {
+function TaskForm({
+	                  isLoading,
+										setTasks,
+	                  selectedTask,
+	                  setSelectedTask,
+	                  editCallback,
+	                  deleteCallback,
+	                  editedTaskPrevData,
+										setEditedTaskPrevData
+}) {
 
 	const [taskData, setTaskData] = useState(selectedTask)
+	const thisForm = useRef() // reference on task form
 
 	useEffect(() => {
 		setTaskData(selectedTask)
 	}, [selectedTask])
 
+	// cancel editing process
+	const cancelEditing = () => {
+		// finish editing
+		setSelectedTask(prevState => {
+			return {...prevState, isEdited: false}
+		})
+		// set to taskData state previous data
+		setTaskData(editedTaskPrevData)
+		// clear previous task data state in App
+		setEditedTaskPrevData(undefined)
+	}
+
+	// accept changes in edited task
+	const acceptEditing = () => {
+		// get collection of all task form's children
+		const formElements = thisForm.current.elements
+		// collect necessary values in object
+		const editedTaskData = {
+			id: taskData.task.id, // get task id from taskData state
+			name: formElements.name.value,
+			description: formElements.description.value,
+			date: formElements.date.value,
+			time: formElements.time.value,
+			status: formElements.status.value
+		}
+		// set edited data to tasks array in App
+		setTasks(prevState => {
+			// loop over the tasks
+			return prevState.map(task => {
+				//find the provided id and update data
+				//else returns unmodified item
+				return task.id === taskData.task.id ?
+					{...editedTaskData} :
+					task
+			})
+		})
+		// set edited data to selectedTask state and finish editing
+		setSelectedTask(prevState => {
+			return {...prevState, task: {...editedTaskData}, isEdited: false}
+		})
+	}
+
 	return (
-		<form className={ stl.wrapper } id='task-form'>
+		<form className={ stl.wrapper } id='task-form' ref={ thisForm }>
 			{
 				isLoading ?
 					<div className={ stl.loading }>
@@ -62,18 +114,37 @@ function TaskForm({ isLoading, selectedTask, editCallback, deleteCallback }) {
 								/>
 							</div>
 							<div className={ stl.btns }>
-								<IMDButton
-									text='Редактировать'
-									type='edit'
-									size='lg'
-									onClick={ () => editCallback() }
-								/>
-								<IMDButton
-									text='Удалить'
-									type='delete'
-									size='lg'
-									onClick={ () => deleteCallback() }
-								/>
+								{
+									selectedTask.isEdited ?
+										<>
+											<IMDButton
+												text='Сохранить'
+												type='save'
+												size='lg'
+												onClick={ acceptEditing }
+											/>
+											<IMDButton
+												text='Отмена'
+												type='cancel'
+												size='lg'
+												onClick={ cancelEditing }
+											/>
+										</> :
+										<>
+											<IMDButton
+												text='Редактировать'
+												type='edit'
+												size='lg'
+												onClick={ () => editCallback(taskData.task) }
+											/>
+											<IMDButton
+												text='Удалить'
+												type='delete'
+												size='lg'
+												onClick={ () => deleteCallback() }
+											/>
+										</>
+								}
 							</div>
 						</> :
 						<div className={ stl.empty }>

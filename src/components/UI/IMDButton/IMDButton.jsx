@@ -3,7 +3,7 @@ import Icons from "../../Icons/Icons"
 
 function IMDButton({ text = '', type, size, onClick }) {
 
-	let iconSize, iconColor
+	let iconSize
 	const elemClasses = [stl.btn] // get necessary CSS-classes and set in array
 
 	// check size props
@@ -43,6 +43,9 @@ function IMDButton({ text = '', type, size, onClick }) {
 		case 'enter':
 			elemClasses.push(stl.btnEnter)
 			break
+		case 'save':
+			elemClasses.push(stl.btnSave)
+			break
 		case 'cancel':
 			elemClasses.push(stl.btnCancel)
 			break
@@ -59,7 +62,7 @@ function IMDButton({ text = '', type, size, onClick }) {
 		>
 			{text}
 			{
-				!(type === 'cancel' || type === 'enter') &&
+				!((type === 'cancel' || type === 'enter') && size === 'sm') &&
 				<Icons
 					name={ type }
 					size={ iconSize }

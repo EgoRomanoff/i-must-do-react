@@ -38,7 +38,8 @@
   &.btnInProcess,
   &.btnDelete,
   &.btnEnter,
-  &.btnCancel {
+  &.btnCancel,
+  &.btnSave {
 
     &:hover svg {
       fill: $white;
@@ -84,6 +85,34 @@
 
     &:hover {
       background: $c-delete;
+      color: $white;
+    }
+  }
+  // large Save
+  &.btnSave {
+    border-color: $c-save;
+    color: $c-save;
+
+    & svg {
+      fill: $c-save;
+    }
+
+    &:hover {
+      background: $c-save;
+      color: $white;
+    }
+  }
+  // large Cancel
+  &.btnCancel {
+    border-color: $c-cancel;
+    color: $c-cancel;
+
+    & svg {
+      fill: $c-cancel;
+    }
+
+    &:hover {
+      background: $c-cancel;
       color: $white;
     }
   }
