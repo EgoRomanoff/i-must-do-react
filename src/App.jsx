@@ -81,6 +81,7 @@ function App() {
       <Tasks
         tasks={ tasks }
         setTasks={ setTasks }
+        selectedTask={ selectedTask }
         setSelectedTask = { setSelectedTask }
         isLoading={ isLoading }
         editCallback={ editTask }

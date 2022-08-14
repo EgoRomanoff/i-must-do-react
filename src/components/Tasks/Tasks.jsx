@@ -6,7 +6,7 @@ import TaskListSkeleton from "../Skeletons/TaskListSkeleton/TaskListSkeleton"
 import FooterSkeleton from "../Skeletons/FooterSkeleton/FooterSkeleton"
 import {useRef} from "react";
 
-function Tasks({ tasks, setTasks, setSelectedTask, isLoading, editCallback, deleteCallback }) {
+function Tasks({ tasks, setTasks, selectedTask, setSelectedTask, isLoading, editCallback, deleteCallback }) {
 
 	const tasksElem = useRef(null) // ref on this element (use in function fo resizing)
 
@@ -47,6 +47,7 @@ function Tasks({ tasks, setTasks, setSelectedTask, isLoading, editCallback, dele
 					<TaskList
 						tasks={ tasks }
 						setTasks={ setTasks }
+						selectedTask={ selectedTask }
 						setSelectedTask={ setSelectedTask }
 						editCallback={ editCallback }
 						deleteCallback={ deleteCallback }

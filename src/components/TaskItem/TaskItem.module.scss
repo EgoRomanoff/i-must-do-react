@@ -4,6 +4,7 @@
   position: relative;
   border-radius: $radius-primary;
   overflow: hidden;
+  border: 1px solid transparent;
 
   &:hover {
     background: rgba($green-500, .1);
@@ -92,5 +93,6 @@
 }
 
 .selected {
+  border: 1px solid $green-500;
   background: rgba($green-500, .1);
 }

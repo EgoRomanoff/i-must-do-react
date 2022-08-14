@@ -1,10 +1,19 @@
 import stl from './TaskItem.module.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
-import {useState} from "react"
+import {useRef, useState} from "react"
 import TaskItemData from "../TaskItemData/TaskItemData"
 
-function TaskItem({ task, setTasks, setSelectedTask, editCallback, deleteCallback }) {
+function TaskItem({
+	                  task,
+	                  setTasks,
+	                  editCallback,
+	                  deleteCallback,
+	                  selectTaskCallback,
+	                  selectedID
+}) {
+
+	const thisTaskItem = useRef()
 
 	let elemClasses = [stl.wrapper] // get necessary CSS-classes and set in array
 
@@ -17,6 +26,8 @@ function TaskItem({ task, setTasks, setSelectedTask, editCallback, deleteCallbac
 			break
 		case 'complete':
 			elemClasses.push(stl.taskComplete)
+			break
+		default:
 			break
 	}
 
@@ -43,7 +54,7 @@ function TaskItem({ task, setTasks, setSelectedTask, editCallback, deleteCallbac
 
 	// open modal and set parameters
 	const showModal = (btnType) => {
-		// read 'btnType' and set needed ModalState
+		// read 'btnType' and set necessary ModalState
 		switch (btnType) {
 			case 'complete':
 				setModalState({
@@ -71,31 +82,20 @@ function TaskItem({ task, setTasks, setSelectedTask, editCallback, deleteCallbac
 		}
 	}
 
+	// convert date value to "dd.mm.yyyy" format by RegExp
 	const convertDate = (date) => {
 		const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/
 		return date.replace(dateRegExp, '$3.$2.$1')
-			// dateFromItem = /(\d{2})\.(\d{2})\.(\d{4})/
-		// return dateFromInput.test(dateValue)
-		// 	? dateValue.replace(dateFromInput, '$3.$2.$1')
-		// 	: dateValue.replace(dateFromItem, '$3-$2-$1')
-	}
-
-	const selectTask = e => {
-		e.stopPropagation()
-		setSelectedTask({
-			task: task,
-			isEdited: false
-		})
-		// e.currentTarget.parentNode.classList.toggle(`${stl.selected}`)
 	}
 
 	return (
 		<li
 			// Turn array into string and set CSS-classes
-			className={ elemClasses.join(' ') }
+			className={`${elemClasses.join(' ')} ${selectedID === task.id ? stl.selected : ''}` }
 			id={ task.id }
+			ref={ thisTaskItem }
 		>
-			<div className={ stl.inner } onClick={ selectTask }>
+			<div className={ stl.inner } onClick={ () => selectTaskCallback(task) }>
 				<span className={ stl.name }>{ task.name }</span>
 
 				{ // check description presence

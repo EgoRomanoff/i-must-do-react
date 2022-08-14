@@ -1,7 +1,20 @@
 import stl from './TaskList.module.scss'
 import TaskItem from "../TaskItem/TaskItem"
+import {useState} from "react"
 
 function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallback }) {
+
+	// state for current selected task id
+	const [selectedID, setSelectedID] = useState()
+
+	// callback for setting selected task
+	const selectTask = (task) => {
+		setSelectedTask({
+			task: task,
+			isEdited: false
+		})
+		setSelectedID(task.id)
+	}
 
 	const isTasksEmpty = () => {
 		if (tasks.length) {
@@ -11,9 +24,10 @@ function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallba
 						key={ task.id }
 						task={ task }
 						setTasks={ setTasks }
-						setSelectedTask={ setSelectedTask }
 						editCallback={ editCallback }
 						deleteCallback={ deleteCallback }
+						selectTaskCallback={ selectTask }
+						selectedID={ selectedID }
 					/>
 				)
 			})
@@ -21,15 +35,6 @@ function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallba
 			return <span className={ stl.empty }>Задач нет</span>
 		}
 	}
-
-	// const selectTask = e => {
-	// 	e.stopPropagation()
-	// 	setSelectedTask({
-	// 		task: task,
-	// 		isEdited: false
-	// 	})
-	// 	e.currentTarget.parentNode.classList.toggle(`${stl.selected}`)
-	// }
 
 	return (
 		<ul className={ stl.wrapper }>
