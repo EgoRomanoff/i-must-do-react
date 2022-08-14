@@ -4,6 +4,12 @@
 $white: #FFF;
 $green-100: #E0EEEB;
 $green-500: #2D8D79;
+$skeleton-gradient: linear-gradient(90deg,
+        $green-100 0%,
+        #F1F8F6 25%,
+        $green-100 50%,
+        #F1F8F6 75%,
+        $green-100 100%);
 $font-c-primary: #1C1C1C;
 $font-c-secondary: #666666;
 $c-waiting: #BEBEBE;

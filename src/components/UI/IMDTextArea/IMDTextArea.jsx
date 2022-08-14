@@ -2,7 +2,7 @@ import stl from './IMDTextArea.module.scss'
 import {useEffect, useLayoutEffect, useRef, useState} from "react"
 
 function IMDTextArea({ className, taskDataType, data, isEdited }) {
-	console.log(className)
+
 	const [value, setValue] = useState('')
 	const thisTextarea = useRef(null)
 
@@ -10,13 +10,15 @@ function IMDTextArea({ className, taskDataType, data, isEdited }) {
 		setValue(data)
 	}, [data])
 
-	let minHeight
+	let minHeight, placeholder
 	switch (taskDataType) {
 		case 'name':
 			minHeight = 44
+			placeholder = 'Введите название задачи...'
 			break
 		case 'description':
 			minHeight = 38
+			placeholder = 'Нет описания...'
 			break
 	}
 
@@ -43,6 +45,7 @@ function IMDTextArea({ className, taskDataType, data, isEdited }) {
 				value={ value }
 				onChange={ onChangeHandler }
 				rows='1'
+				placeholder={ placeholder }
 			/>
 		</div>
 	)

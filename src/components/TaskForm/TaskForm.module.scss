@@ -17,14 +17,14 @@
   @include font($font-f-regular, 500);
 
   font-size: 1.25rem;
+  margin-bottom: 20px;
 }
 
 .description {
   @include font($font-f-regular, 400);
 
-  border-left: 2px solid $green-500;
-  padding-left: 10px;
   font-size: 1rem;
+  margin: 10px 0;
 }
 
 .datetime {
@@ -32,6 +32,7 @@
   display: flex;
   width: min-content;
   margin-bottom: 25px;
+  margin-left: 10px;
   padding-right: 40px;
   font-size: .875rem;
 }

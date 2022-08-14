@@ -2,20 +2,21 @@ import stl from './TaskItem.module.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
 import {useState} from "react"
+import TaskItemData from "../TaskItemData/TaskItemData"
 
 function TaskItem({ task, setTasks, setSelectedTask }) {
 
-	let elementClasses = [stl.wrapper] // get CSS-class 'wrapper' and set in array
+	let elemClasses = [stl.wrapper] // get necessary CSS-classes and set in array
 
 	switch (task.status) { // check task status and add needed CSS-class
 		case 'waiting':
-			elementClasses.push(stl.taskWaiting)
+			elemClasses.push(stl.taskWaiting)
 			break
 		case 'inProcess':
-			elementClasses.push(stl.taskInProcess)
+			elemClasses.push(stl.taskInProcess)
 			break
 		case 'complete':
-			elementClasses.push(stl.taskComplete)
+			elemClasses.push(stl.taskComplete)
 			break
 	}
 
@@ -104,32 +105,45 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 
 	return (
 		<li
+			// Turn array into string and set CSS-classes
+			className={ elemClasses.join(' ') }
 			id={ task.id }
-			className={elementClasses.join(' ')} // put CSS-classes array as string with " " divider
 		>
 			<div className={ stl.inner } onClick={ selectTask }>
 				<span className={ stl.name }>{ task.name }</span>
 
-				{
+				{ // check description presence
 					task.description ?
-						<p className={ stl.description }>{ task.description }</p> :
+						<TaskItemData
+							className={ stl.description }
+							type='description'
+							data={ task.description }
+						/> :
 						null
 				}
 
-				{
+				{ // check date AND time presence
 					(task.date !== null || task.time !== null) ?
-						<p className={ stl.datetime }>
-							{
+						<div className={ stl.datetime }>
+							{ // check date presence
 								task.date ?
-									<span className={ stl.date }>{ convertDate(task.date) }</span> :
+									<TaskItemData
+										className={ stl.date }
+										type='date'
+										data={ task.date }
+									/> :
 									null
 							}
-							{
+							{ // check time presence
 								task.time ?
-									<span className={ stl.time }>{ task.time }</span> :
+									<TaskItemData
+										className={ stl.time }
+										type='time'
+										data={ task.time }
+									/> :
 									null
 							}
-						</p> :
+						</div> :
 						null
 				}
 			</div>
@@ -173,7 +187,7 @@ function TaskItem({ task, setTasks, setSelectedTask }) {
 					null
 			}
 		</li>
-	);
+	)
 }
 
 export default TaskItem;

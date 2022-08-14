@@ -1,5 +1,5 @@
 @import "src/scss/_vars.scss";
-
+// common class
 .btn {
   @include font($font-f-regular, 500);
 
@@ -20,5 +20,87 @@
 
   &:hover svg {
     fill: $white;
+  }
+}
+// large buttons
+.btnLg {
+  height: 36px;
+  padding: 0 15px;
+  border-radius: $radius-primary;
+
+  & svg {
+    margin-left: 10px;
+  }
+
+  // large Add
+  &.btnAdd {
+    border-color: $green-500;
+    color: $green-500;
+
+    &:hover {
+      background: $green-500;
+      color: $white;
+    }
+  }
+}
+// small buttons
+.btnSm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  font-size: .875rem;
+  background: transparent;
+
+  // small Complete
+  &.btnComplete:hover {
+    background: $c-complete;
+  }
+  // small Edit
+  &.btnEdit:hover {
+    background: $c-edit;
+  }
+  // small InProcess
+  &.btnInProcess:hover {
+    background: $c-inProcess;
+  }
+  // small Delete
+  &.btnDelete:hover {
+    background: $c-delete;
+  }
+  // small Enter & Cancel button
+  &.btnEnter, &.btnCancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    width: 60px;
+    border: 1px solid;
+    border-radius: $radius-primary;
+
+    &:hover {
+      color: $white;
+    }
+  }
+  // small Enter
+  &.btnEnter {
+    border-color: $c-enter;
+    color: $c-enter;
+
+    &:hover {
+      background: $c-enter;
+    }
+  }
+  // small Cancel
+  &.btnCancel {
+    border-color: $c-cancel;
+    color: $c-cancel;
+
+    &:hover {
+      background: $c-cancel;
+    }
   }
 }

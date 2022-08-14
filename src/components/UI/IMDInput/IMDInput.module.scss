@@ -4,6 +4,7 @@
   position: relative;
   display: flex;
   width: min-content;
+  height: 26px;
 
   & + & {
     margin-left: 10px;
@@ -26,13 +27,27 @@
   resize: none;
   overflow: hidden;
 
-  &[type="date"] {
+  &[type="date"], &[type="time"] {
     font-size: inherit;
+
+    &::-webkit-calendar-picker-indicator {
+      visibility: visible;
+    }
+  }
+
+  &[type="date"] {
     width: 150px;
+
+    &::-webkit-calendar-picker-indicator {
+      background-image: url('../../../img/date__icon.svg');
+    }
   }
 
   &[type="time"] {
-    font-size: inherit;
     width: 100px;
+
+    &::-webkit-calendar-picker-indicator {
+      background-image: url('../../../img/time__icon.svg');
+    }
   }
 }

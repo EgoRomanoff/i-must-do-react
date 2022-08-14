@@ -30,7 +30,7 @@
   user-select: none;
 }
 
-.name, .description {
+.name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -41,27 +41,26 @@
   @include font($font-f-regular, 700);
 }
 
+.description, .date, .time {
+  margin-top: 6px;
+}
+
 .description {
   @include font($font-f-regular, 500);
 
-  margin-top: 6px;
   color: $font-c-secondary;
-  font-size: .875rem;
 }
 
 .datetime {
-  @include font($font-f-regular, 400);
-
-  margin-top: 6px;
   display: flex;
-  white-space: nowrap;
-  font-size: .875rem;
 }
 
-.date {
-  & + .time {
-    margin-left: 12px;
-  }
+.date, .time {
+  @include font($font-f-regular, 400);
+}
+
+.date + .time {
+  margin-left: 15px;
 }
 
 .btns {
@@ -70,7 +69,8 @@
   right: 2px;
   display: none;
   border-radius: $radius-primary;
-  background: transparent;
+  background: rgba($white, .85);
+  backdrop-filter: blur(1px);
   overflow: hidden;
   z-index: 10;
 }

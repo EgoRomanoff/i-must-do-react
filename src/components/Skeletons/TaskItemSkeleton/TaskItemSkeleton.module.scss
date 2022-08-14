@@ -13,20 +13,11 @@
   overflow: hidden;
 
   &:before {
-    position: absolute;
     top: calc(50% - 16px / 2);
     left: 14px;
-    content: '';
     width: 16px;
     height: 16px;
-    border-radius: 50%;
-    background: rgba($green-500, .15);
   }
-}
-
-.name, .description, .datetime {
-  border-radius: $radius-primary;
-  background: rgba($green-500, .15);
 }
 
 .name, .description {

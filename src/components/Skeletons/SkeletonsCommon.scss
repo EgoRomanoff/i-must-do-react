@@ -1,0 +1,41 @@
+@import 'src/scss/_vars.scss';
+
+.skeleton__ellipse, .skeleton__item {
+
+  &:before {
+    position: absolute;
+    content: '';
+    background: $green-100;
+  }
+}
+
+.skeleton__ellipse {
+
+  &:before {
+    border-radius: 50%;
+  }
+}
+
+.skeleton__item {
+  position: relative;
+  border-radius: $radius-primary;
+  overflow: hidden;
+
+  &:before {
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: $skeleton-gradient;
+    animation: background 1.5s linear infinite;
+  }
+}
+
+@keyframes background {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
