@@ -1,6 +1,7 @@
 import stl from './TaskList.module.scss'
 import TaskItem from "../TaskItem/TaskItem"
-import {useState} from "react"
+import {useContext, useState} from "react"
+import { AppContext } from '../../context'
 
 function TaskList({
 	                  taskList,
@@ -11,6 +12,8 @@ function TaskList({
                     searchResult
 }) {
 
+	const { tasks } = useContext(AppContext)
+	// console.log(tasks)
 	// state for current selected task id
 	const [selectedID, setSelectedID] = useState()
 
@@ -28,7 +31,7 @@ function TaskList({
 		// choose data source
 		// if searchResult is present - choose it,
 		// else - choose taskList
-		let dataSource = searchResult || taskList
+		let dataSource = searchResult || tasks
 		// if data source is not empty
 		if (dataSource.length) {
 			// return new array with parsed data

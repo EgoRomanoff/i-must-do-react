@@ -2,6 +2,7 @@ import stl from './App.module.scss'
 import Tasks from "./components/Tasks/Tasks"
 import TaskForm from "./components/TaskForm/TaskForm"
 import {useEffect, useState} from "react"
+import { AppContext } from "./context"
 
 function App() {
 
@@ -101,27 +102,29 @@ function App() {
 
   return (
     <div className={ stl.wrapper }>
-      <Tasks
-        tasks={ tasks }
-        setTasks={ setTasks }
-        selectedTask={ selectedTask }
-        setSelectedTask = { setSelectedTask }
-        isLoading={ isLoading }
-        editCallback={ editTask }
-        deleteCallback={ deleteTask }
-        addTaskCallback={ addTask }
-      />
-      <TaskForm
-        isLoading={ isLoading }
-        setTasks={ setTasks }
-        selectedTask={ selectedTask }
-        setSelectedTask={ setSelectedTask }
-        editedTaskPrevData={ editedTaskPrevData }
-        setEditedTaskPrevData={ setEditedTaskPrevData }
-        editCallback={ editTask }
-        deleteCallback={ deleteTask }
-        maxID={ maxID }
-      />
+      <AppContext.Provider value={{ tasks }}>
+        <Tasks
+          // tasks={ tasks }
+          setTasks={ setTasks }
+          selectedTask={ selectedTask }
+          setSelectedTask = { setSelectedTask }
+          isLoading={ isLoading }
+          editCallback={ editTask }
+          deleteCallback={ deleteTask }
+          addTaskCallback={ addTask }
+        />
+        <TaskForm
+          isLoading={ isLoading }
+          setTasks={ setTasks }
+          selectedTask={ selectedTask }
+          setSelectedTask={ setSelectedTask }
+          editedTaskPrevData={ editedTaskPrevData }
+          setEditedTaskPrevData={ setEditedTaskPrevData }
+          editCallback={ editTask }
+          deleteCallback={ deleteTask }
+          maxID={ maxID }
+        />
+      </AppContext.Provider>
     </div>
   );
 }

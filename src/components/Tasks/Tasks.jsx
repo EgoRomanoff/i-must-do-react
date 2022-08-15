@@ -4,10 +4,10 @@ import TaskList from "../TaskList/TaskList"
 import Footer from "../Footer/Footer"
 import TaskListSkeleton from "../Skeletons/TaskListSkeleton/TaskListSkeleton"
 import FooterSkeleton from "../Skeletons/FooterSkeleton/FooterSkeleton"
-import {useEffect, useRef, useState} from "react"
+import {useContext, useEffect, useRef, useState} from "react"
+import { AppContext } from '../../context'
 
 function Tasks({
-	               tasks,
 	               setTasks,
 	               selectedTask,
 	               setSelectedTask,
@@ -17,20 +17,16 @@ function Tasks({
 	               addTaskCallback }) {
 
 	const tasksElem = useRef(null) // ref on this element (use in function fo resizing)
-	const [taskList, setTaskList] = useState([])
 	const [searchValue, setSearchValue] = useState('')
 	const [searchResult, setSearchResult] = useState(undefined)
 
-	useEffect(() => {
-		setTaskList(tasks)
-	}, [tasks])
+	const { tasks } = useContext(AppContext)
 
 	useEffect(() => {
 		if (searchValue === '') {
 			setSearchResult(undefined)
-			// setTaskList(tasks)
 		} else {
-			const results = taskList.filter(task =>
+			const results = tasks.filter(task =>
 				task.name.toLowerCase().includes(searchValue.toLowerCase())
 			)
 			setSearchResult(results)
@@ -75,7 +71,6 @@ function Tasks({
 				isLoading ?
 					<TaskListSkeleton/> :
 					<TaskList
-						taskList={ taskList }
 						setTasks={ setTasks }
 						selectedTask={ selectedTask }
 						setSelectedTask={ setSelectedTask }
