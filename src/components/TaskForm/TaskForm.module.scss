@@ -27,8 +27,7 @@
   position: relative;
   display: flex;
   width: min-content;
-  margin-bottom: 25px;
-  margin-left: 10px;
+  margin-bottom: 50px;
   padding-right: 40px;
   font-size: .875rem;
 }
@@ -44,7 +43,10 @@
 
 .edited {
 
-  & input {
+  & input, & textarea {
+    border-color: $green-100;
+    transition: background .2s ease,
+                border-color .2s ease;
 
     &:hover {
       background: $green-100;

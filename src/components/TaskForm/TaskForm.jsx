@@ -54,6 +54,7 @@ function TaskForm({
 	const confirmEditing = () => {
 		// get collection of all task form's children
 		const formElements = thisForm.current.elements
+		console.log(formElements)
 		// collect necessary values in object
 		const creatingTaskData = {
 			// get task id from taskData state
@@ -111,7 +112,7 @@ function TaskForm({
 					taskData.task ?
 						<>
 							<IMDTextArea
-								className={ stl.name }
+								className={`${stl.name}  ${taskData.isEdited && stl.edited}`}
 								taskDataType='name'
 								data={ taskData.task.name }
 								isEdited={ taskData.isEdited }
@@ -123,7 +124,7 @@ function TaskForm({
 							/>
 
 							<IMDTextArea
-								className={ stl.description }
+								className={`${stl.description} ${taskData.isEdited && stl.edited}`}
 								taskDataType='description'
 								data={ taskData.task.description || '' }
 								isEdited={ taskData.isEdited }

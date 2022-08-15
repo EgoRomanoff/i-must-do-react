@@ -13,23 +13,24 @@ function IMDTextArea({ className, taskDataType, data, isEdited }) {
 	let minHeight, placeholder
 	switch (taskDataType) {
 		case 'name':
-			minHeight = 44
+			minHeight = 42
 			placeholder = 'Введите название задачи...'
 			break
 		case 'description':
-			minHeight = 38
+			minHeight = 36
 			placeholder = 'Нет описания...'
+			break
+		default:
 			break
 	}
 
 	useLayoutEffect(() => {
-		thisTextarea.current.style.height = 'inherit'
+		thisTextarea.current.style.minHeight = 'inherit'
 
-		thisTextarea.current.style.height = `${Math.max(
+		thisTextarea.current.style.minHeight = `${Math.max(
 			thisTextarea.current.scrollHeight,
 			minHeight
 		)}px`
-		
 	}, [value])
 
 	const onChangeHandler = e => {
@@ -37,7 +38,7 @@ function IMDTextArea({ className, taskDataType, data, isEdited }) {
 	}
 
 	return (
-		<div className={`${stl.wrapper} ${className} ${isEdited && stl.edited}`}>
+		<div className={`${stl.wrapper} ${className}`}>
 			<textarea
 				className={ stl.input }
 				readOnly={ !isEdited }

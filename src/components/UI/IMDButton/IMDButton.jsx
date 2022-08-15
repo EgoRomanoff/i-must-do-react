@@ -10,7 +10,7 @@ function IMDButton({ text = '', type, size, onClick }) {
 	// and set icon size and button size class
 	switch (size) {
 		case 'lg':
-			iconSize = '16'
+			iconSize = '14'
 			elemClasses.push(stl.btnLg)
 			break
 		case 'sm':
@@ -18,7 +18,7 @@ function IMDButton({ text = '', type, size, onClick }) {
 			elemClasses.push(stl.btnSm)
 			break
 		default:
-			iconSize = '16'
+			iconSize = '14'
 			break
 	}
 

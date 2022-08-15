@@ -14,11 +14,9 @@
 .input {
   outline: none;
   width: 100%;
-  padding: 5px;
+  padding: 5px 10px;
   border: 1px solid transparent;
-  border-bottom-color: $green-500;
-  border-top-left-radius: $radius-primary;
-  border-top-right-radius: $radius-primary;
+  border-radius: $radius-primary;
   color: $font-c-primary;
   font-family: inherit;
   font-size: inherit;
@@ -29,6 +27,7 @@
 
   &[type="date"], &[type="time"] {
     font-size: inherit;
+    padding-right: 5px;
 
     &::-webkit-calendar-picker-indicator {
       visibility: visible;
@@ -36,7 +35,7 @@
   }
 
   &[type="date"] {
-    width: 150px;
+    width: 130px;
 
     &::-webkit-calendar-picker-indicator {
       background-image: url('../../../img/date__icon.svg');
@@ -44,7 +43,7 @@
   }
 
   &[type="time"] {
-    width: 100px;
+    width: 85px;
 
     &::-webkit-calendar-picker-indicator {
       background-image: url('../../../img/time__icon.svg');
