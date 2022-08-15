@@ -169,6 +169,7 @@ function TaskItem({
 						setModalState={ setModalState }
 						text={ modalState.question }
 						callback={ modalState.callback }
+						size='sm'
 					/> :
 					null
 			}

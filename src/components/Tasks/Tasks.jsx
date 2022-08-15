@@ -4,11 +4,38 @@ import TaskList from "../TaskList/TaskList"
 import Footer from "../Footer/Footer"
 import TaskListSkeleton from "../Skeletons/TaskListSkeleton/TaskListSkeleton"
 import FooterSkeleton from "../Skeletons/FooterSkeleton/FooterSkeleton"
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react"
 
-function Tasks({ tasks, setTasks, selectedTask, setSelectedTask, isLoading, editCallback, deleteCallback }) {
+function Tasks({
+	               tasks,
+	               setTasks,
+	               selectedTask,
+	               setSelectedTask,
+	               isLoading,
+	               editCallback,
+	               deleteCallback,
+	               addTaskCallback }) {
 
 	const tasksElem = useRef(null) // ref on this element (use in function fo resizing)
+	const [taskList, setTaskList] = useState([])
+	const [searchValue, setSearchValue] = useState('')
+	const [searchResult, setSearchResult] = useState(undefined)
+
+	useEffect(() => {
+		setTaskList(tasks)
+	}, [tasks])
+
+	useEffect(() => {
+		if (searchValue === '') {
+			setSearchResult(undefined)
+			// setTaskList(tasks)
+		} else {
+			const results = taskList.filter(task =>
+				task.name.toLowerCase().includes(searchValue.toLowerCase())
+			)
+			setSearchResult(results)
+		}
+	}, [searchValue])
 
 	// creating an element for changing drag effect picture
 	const dragImg = document.createElement('canvas');
@@ -40,17 +67,21 @@ function Tasks({ tasks, setTasks, selectedTask, setSelectedTask, isLoading, edit
         onDragStart={ startResize }
         onDrag={ resize }
       />
-			<Header/>
+			<Header
+				setSearchValue={ setSearchValue }
+				addTaskCallback={ addTaskCallback }
+			/>
 			{
 				isLoading ?
 					<TaskListSkeleton/> :
 					<TaskList
-						tasks={ tasks }
+						taskList={ taskList }
 						setTasks={ setTasks }
 						selectedTask={ selectedTask }
 						setSelectedTask={ setSelectedTask }
 						editCallback={ editCallback }
 						deleteCallback={ deleteCallback }
+						searchResult={ searchResult }
 					/>
 			}
 			{

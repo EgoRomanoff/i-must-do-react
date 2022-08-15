@@ -4,6 +4,7 @@ import StatusRadio from "../StatusRadio/StatusRadio"
 import IMDInput from "../UI/IMDInput/IMDInput"
 import {useEffect, useRef, useState} from "react"
 import IMDButton from "../UI/IMDButton/IMDButton"
+import TaskModal from "../TaskModal/TaskModal";
 
 function TaskForm({
 	                  isLoading,
@@ -13,11 +14,17 @@ function TaskForm({
 	                  editCallback,
 	                  deleteCallback,
 	                  editedTaskPrevData,
-										setEditedTaskPrevData
+										setEditedTaskPrevData,
+										maxID,
 }) {
 
 	const [taskData, setTaskData] = useState(selectedTask)
 	const thisForm = useRef() // reference on task form
+	const [modalState, setModalState] = useState({
+		isVisible: false,
+		question: null,
+		callback: null
+	})
 
 	useEffect(() => {
 		setTaskData(selectedTask)
@@ -26,42 +33,67 @@ function TaskForm({
 	// cancel editing process
 	const cancelEditing = () => {
 		// finish editing
-		setSelectedTask(prevState => {
-			return {...prevState, isEdited: false}
-		})
-		// set to taskData state previous data
-		setTaskData(editedTaskPrevData)
-		// clear previous task data state in App
-		setEditedTaskPrevData(undefined)
+		if (selectedTask.isAdded) {
+			setSelectedTask({
+				task: undefined,
+				isEdited: false,
+				isAdded: false
+			})
+		} else {
+			setSelectedTask(prevState => {
+				return {...prevState, isEdited: false, isAdded: false}
+			})
+			// set to taskData state previous data
+			setTaskData(editedTaskPrevData)
+			// clear previous task data state in App
+			setEditedTaskPrevData(undefined)
+		}
 	}
 
 	// accept changes in edited task
-	const acceptEditing = () => {
+	const confirmEditing = () => {
 		// get collection of all task form's children
 		const formElements = thisForm.current.elements
 		// collect necessary values in object
-		const editedTaskData = {
-			id: taskData.task.id, // get task id from taskData state
+		const creatingTaskData = {
+			// get task id from taskData state
+			id: selectedTask.isAdded ? +maxID + 1 : taskData.task.id,
 			name: formElements.name.value,
 			description: formElements.description.value,
 			date: formElements.date.value,
 			time: formElements.time.value,
 			status: formElements.status.value
 		}
-		// set edited data to tasks array in App
-		setTasks(prevState => {
-			// loop over the tasks
-			return prevState.map(task => {
-				//find the provided id and update data
-				//else returns unmodified item
-				return task.id === taskData.task.id ?
-					{...editedTaskData} :
-					task
+
+		if (selectedTask.isAdded) {
+			setTasks(prevState => {
+				return [...prevState, creatingTaskData]
 			})
-		})
+		} else {
+			// set edited data to tasks array in App
+			setTasks(prevState => {
+				// loop over the tasks
+				return prevState.map(task => {
+					//find the provided id and update data
+					//else returns unmodified item
+					return task.id === taskData.task.id ?
+						{...creatingTaskData} :
+						task
+				})
+			})
+		}
+
 		// set edited data to selectedTask state and finish editing
 		setSelectedTask(prevState => {
-			return {...prevState, task: {...editedTaskData}, isEdited: false}
+			return {...prevState, task: {...creatingTaskData}, isEdited: false, isAdded: false}
+		})
+	}
+
+	const confirmDelete = () => {
+		setModalState({
+			isVisible: true,
+			question: 'Удалить задачу?',
+			callback: deleteCallback
 		})
 	}
 
@@ -121,7 +153,7 @@ function TaskForm({
 												text='Сохранить'
 												type='save'
 												size='lg'
-												onClick={ acceptEditing }
+												onClick={ confirmEditing }
 											/>
 											<IMDButton
 												text='Отмена'
@@ -141,11 +173,22 @@ function TaskForm({
 												text='Удалить'
 												type='delete'
 												size='lg'
-												onClick={ () => deleteCallback() }
+												onClick={ confirmDelete }
 											/>
 										</>
 								}
 							</div>
+							{
+								modalState.isVisible ?
+									<TaskModal
+										isVisible={ modalState.isVisible }
+										setModalState={ setModalState }
+										text={ modalState.question }
+										callback={ modalState.callback }
+										size='lg'
+									/> :
+									null
+							}
 						</> :
 						<div className={ stl.empty }>
 							Выберите задачу<br/>

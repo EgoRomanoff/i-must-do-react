@@ -9,9 +9,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [selectedTask, setSelectedTask] = useState({
     task: undefined,
-    isEdited: false
+    isEdited: false,
+    isAdded: false,
   })
   const [editedTaskPrevData, setEditedTaskPrevData] = useState(undefined)
+  const [maxID, setMaxID] = useState(0)
 
   const getTasks = async () => {
     setIsLoading(true)
@@ -38,6 +40,12 @@ function App() {
 
   // ~ componentDidMount
   useEffect(() => {getTasks()}, [])
+
+  useEffect(() => {
+    setMaxID(tasks.reduce((prevID, task) => {
+      return prevID < task.id ? task.id : prevID
+    }, 0))
+  }, [tasks])
 
   // callback for editing current task
   const editTask = (taskData, taskID) => {
@@ -76,6 +84,21 @@ function App() {
     })
   }
 
+  const addTask = () => {
+    setSelectedTask({
+      task: {
+        id: +maxID + 1,
+        name: '',
+        description: '',
+        date: '',
+        time: '',
+        status: 'waiting'
+      },
+      isEdited: true,
+      isAdded: true,
+    })
+  }
+
   return (
     <div className={ stl.wrapper }>
       <Tasks
@@ -86,6 +109,7 @@ function App() {
         isLoading={ isLoading }
         editCallback={ editTask }
         deleteCallback={ deleteTask }
+        addTaskCallback={ addTask }
       />
       <TaskForm
         isLoading={ isLoading }
@@ -96,6 +120,7 @@ function App() {
         setEditedTaskPrevData={ setEditedTaskPrevData }
         editCallback={ editTask }
         deleteCallback={ deleteTask }
+        maxID={ maxID }
       />
     </div>
   );

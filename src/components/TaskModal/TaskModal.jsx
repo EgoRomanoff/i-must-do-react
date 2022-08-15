@@ -2,7 +2,7 @@ import stl from './TaskModal.module.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import {useRef} from "react"
 
-function TaskModal({ isVisible, setModalState, text, callback }) {
+function TaskModal({ className, isVisible, setModalState, text, callback, size }) {
 
 	const thisModal = useRef(null) // link to current modal
 
@@ -30,28 +30,37 @@ function TaskModal({ isVisible, setModalState, text, callback }) {
 	}
 
 	return (
-		<div className={ stl.wrapper } ref={ thisModal }>
+		<>
+			{
+				size === 'lg' ?
+					<div className={ stl.overlay }></div> :
+					null
+			}
+			<div
+				className={`${ stl.wrapper } ${ size === 'lg' ? stl.modalLG : stl.modalSM }`}
+				ref={ thisModal }>
 			<span className={ stl.text }>
 				{ text }
 			</span>
-			<div className={ stl.btns }>
-				<IMDButton
-					text='Да'
-					type='enter'
-					size='sm'
-					onClick={ () => {
-						callback()
-						closeModal()
-					} }
-				/>
-				<IMDButton
-					text='Нет'
-					type='cancel'
-					size='sm'
-					onClick={ closeModal }
-				/>
+				<div className={ stl.btns }>
+					<IMDButton
+						text='Да'
+						type='enter'
+						size='sm'
+						onClick={ () => {
+							callback()
+							closeModal()
+						} }
+					/>
+					<IMDButton
+						text='Нет'
+						type='cancel'
+						size='sm'
+						onClick={ closeModal }
+					/>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

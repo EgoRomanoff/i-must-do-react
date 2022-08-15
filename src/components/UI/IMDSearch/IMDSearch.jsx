@@ -1,17 +1,26 @@
 import stl from './IMDSearch.module.scss'
-import Icons from '../../Icons/Icons'
+import {useState} from "react"
 
-function IMDSearch() {
+function IMDSearch({ setSearchValue }) {
+
+	const [inputValue, setInputValue] = useState('')
+
+	const onChangeHandler = e => {
+		setSearchValue(e.target.value)
+		setInputValue(e.target.value)
+	}
+
 	return (
 		<div className={`${stl.wrapper}`}>
-			<input className={ stl.input } type="search" placeholder="Найти задачу..."/>
-			<button className={ stl.btn }>
-				<Icons
-					name='search'
-				/>
-			</button>
+			<input
+				className={ stl.input }
+				type="search"
+				placeholder="Найти задачу..."
+				value={ inputValue }
+				onChange={ onChangeHandler }
+			/>
 		</div>
-	);
+	)
 }
 
-export default IMDSearch;
+export default IMDSearch

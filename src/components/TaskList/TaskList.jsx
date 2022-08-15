@@ -2,7 +2,14 @@ import stl from './TaskList.module.scss'
 import TaskItem from "../TaskItem/TaskItem"
 import {useState} from "react"
 
-function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallback }) {
+function TaskList({
+	                  taskList,
+	                  setTasks,
+	                  setSelectedTask,
+	                  editCallback,
+	                  deleteCallback,
+                    searchResult
+}) {
 
 	// state for current selected task id
 	const [selectedID, setSelectedID] = useState()
@@ -16,9 +23,16 @@ function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallba
 		setSelectedID(task.id)
 	}
 
-	const isTasksEmpty = () => {
-		if (tasks.length) {
-			return tasks.map(task => {
+	// render task items of task list
+	const renderTaskList = () => {
+		// choose data source
+		// if searchResult is present - choose it,
+		// else - choose taskList
+		let dataSource = searchResult || taskList
+		// if data source is not empty
+		if (dataSource.length) {
+			// return new array with parsed data
+			return dataSource.map(task => {
 				return (
 					<TaskItem
 						key={ task.id }
@@ -32,13 +46,14 @@ function TaskList({ tasks, setTasks, setSelectedTask, editCallback, deleteCallba
 				)
 			})
 		} else {
+			// else return an empty screen
 			return <span className={ stl.empty }>Задач нет</span>
 		}
 	}
 
 	return (
 		<ul className={ stl.wrapper }>
-			{ isTasksEmpty() }
+			{ renderTaskList() }
 		</ul>
 	)
 }

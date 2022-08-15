@@ -5,6 +5,9 @@
   border-radius: $radius-primary;
   overflow: hidden;
   border: 1px solid transparent;
+  padding: 10px 15px 10px 44px;
+  height: 80px;
+  flex-shrink: 0;
 
   &:hover {
     background: rgba($green-500, .1);
@@ -26,24 +29,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 80px;
-  padding: 10px 15px 10px 44px;
+  height: 100%;
   user-select: none;
 }
 
 .name {
+  @include font($font-f-regular, 700);
+  flex-shrink: 0;
+  height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 1rem;
-}
-
-.name {
-  @include font($font-f-regular, 700);
+  line-height: normal;
 }
 
 .description, .date, .time {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .description {

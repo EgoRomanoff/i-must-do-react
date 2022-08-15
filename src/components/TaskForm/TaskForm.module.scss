@@ -1,10 +1,11 @@
 @import 'src/scss/_vars.scss';
 
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  padding: 15px;
+  padding: 20px 15px 15px;
 }
 
 .name {
