@@ -1,17 +1,22 @@
 import stl from './IMDSearch.module.scss'
 import {useState} from "react"
 
-function IMDSearch({ setSearchValue }) {
+function IMDSearch({ setSearchData }) {
 
 	const [inputValue, setInputValue] = useState('')
 
-	const onChangeHandler = e => {
-		setSearchValue(e.target.value)
+	const onChangeHandler = e => {    // set input value to searchData state in Resizer
+		setSearchData(prevState => {
+			return {
+				...prevState,
+				value: e.target.value
+			}
+		})
 		setInputValue(e.target.value)
 	}
 
 	return (
-		<div className={`${stl.wrapper}`}>
+		<div className={ stl.wrapper }>
 			<input
 				className={ stl.input }
 				type="search"

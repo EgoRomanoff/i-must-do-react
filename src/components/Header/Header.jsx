@@ -3,7 +3,8 @@ import logo from '../../img/logo.svg'
 import IMDSearch from "../UI/IMDSearch/IMDSearch"
 import IMDButton from "../UI/IMDButton/IMDButton"
 
-function Header({ addTaskCallback, setSearchValue }) {
+function Header({ setSearchData, addTaskCallback }) {
+
 	return (
 		<div className={ stl.wrapper }>
 			<svg className={ stl.logo }>
@@ -15,9 +16,7 @@ function Header({ addTaskCallback, setSearchValue }) {
 				size="lg"
 				onClick={ addTaskCallback }
 			/>
-			<IMDSearch
-				setSearchValue={ setSearchValue }
-			/>
+			<IMDSearch setSearchData={ setSearchData }/>
 		</div>
 	)
 }

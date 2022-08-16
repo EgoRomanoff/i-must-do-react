@@ -4,90 +4,51 @@ import TaskList from "../TaskList/TaskList"
 import Footer from "../Footer/Footer"
 import TaskListSkeleton from "../Skeletons/TaskListSkeleton/TaskListSkeleton"
 import FooterSkeleton from "../Skeletons/FooterSkeleton/FooterSkeleton"
-import {useContext, useEffect, useRef, useState} from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from '../../context'
+import Resizer from "../Resizer/Resizer"
 
-function Tasks({
-	               setTasks,
-	               selectedTask,
-	               setSelectedTask,
-	               isLoading,
-	               editCallback,
-	               deleteCallback,
-	               addTaskCallback }) {
-
-	const tasksElem = useRef(null) // ref on this element (use in function fo resizing)
-	const [searchValue, setSearchValue] = useState('')
-	const [searchResult, setSearchResult] = useState(undefined)
+function Tasks({ isLoading, addTaskCallback }) {
 
 	const { tasks } = useContext(AppContext)
+	const thisTasksElem = useRef() // ref on this element (use in function fo resizing)
+	const [searchData, setSearchData] = useState({  // state for searching (value and results)
+		value: '',
+		results: undefined
+	})
 
+	// using hook useEffect for searching tasks by name
 	useEffect(() => {
-		if (searchValue === '') {
-			setSearchResult(undefined)
+		if (searchData.value === '') {                  // if search input value is empty string
+			setSearchData(prevState => {            // set results to undefined
+				return {...prevState, results: undefined}
+			})
 		} else {
-			const results = tasks.filter(task =>
-				task.name.toLowerCase().includes(searchValue.toLowerCase())
+			const results = tasks.filter(task =>          // filter tasks context by any matches with search value
+				task.name.toLowerCase().includes(searchData.value.toLowerCase())
 			)
-			setSearchResult(results)
+			setSearchData(prevState => {            // set collection of matched tasks to results state
+				return {...prevState, results: results}
+			})
 		}
-	}, [searchValue])
-
-	// creating an element for changing drag effect picture
-	const dragImg = document.createElement('canvas');
-	dragImg.classList.add('drag-img')
-	dragImg.width = 0;
-	dragImg.height = 0;
-
-  let startPosition, tasksWidth
-
-	// get coordinates and width values at the start of resizing
-	const startResize = e => {
-		e.stopPropagation()
-    startPosition = e.clientX // X of resizer element
-    tasksWidth = tasksElem.current.offsetWidth // current width of Tasks element
-	  e.dataTransfer.setDragImage(dragImg, 0, 0) // set drag image
-		e.target.style.cursor = 'col-resize'
-	}
-
-	// change width when border is moving
-  const resize = e => {
-    tasksElem.current.style.width = `${tasksWidth + e.clientX - startPosition}px`
-  }
+	}, [searchData.value])
 
 	return (
-		<div className={ stl.wrapper } ref={ tasksElem }>
-      <div
-        className={ stl.resizer }
-        draggable={ true }
-        onDragStart={ startResize }
-        onDrag={ resize }
-      />
+		<div className={ stl.wrapper } ref={ thisTasksElem }>
+      <Resizer className={ stl.resizer } resizableElem={ thisTasksElem }/>
 			<Header
-				setSearchValue={ setSearchValue }
+				setSearchData={ setSearchData }
 				addTaskCallback={ addTaskCallback }
 			/>
 			{
 				isLoading ?
 					<TaskListSkeleton/> :
-					<TaskList
-						setTasks={ setTasks }
-						selectedTask={ selectedTask }
-						setSelectedTask={ setSelectedTask }
-						editCallback={ editCallback }
-						deleteCallback={ deleteCallback }
-						searchResult={ searchResult }
-					/>
+					<TaskList searchResults={ searchData.results } />
 			}
 			{
 				isLoading ?
 					<FooterSkeleton/> :
-					<Footer
-						total={ tasks.length }
-						waiting={ tasks.filter(task => task.status === 'waiting').length }
-						inProcess={ tasks.filter(task => task.status === 'inProcess').length }
-						complete={ tasks.filter(task => task.status === 'complete').length }
-					/>
+					<Footer/>
 			}
 		</div>
 	)

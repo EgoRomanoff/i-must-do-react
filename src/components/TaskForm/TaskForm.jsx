@@ -2,63 +2,51 @@ import stl from './TaskForm.module.scss'
 import IMDTextArea from "../UI/IMDTextArea/IMDTextArea"
 import StatusRadio from "../StatusRadio/StatusRadio"
 import IMDInput from "../UI/IMDInput/IMDInput"
-import {useEffect, useRef, useState} from "react"
+import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import IMDButton from "../UI/IMDButton/IMDButton"
-import TaskModal from "../TaskModal/TaskModal";
+import TaskModal from "../TaskModal/TaskModal"
+import TaskFormPreloader from "../TaskFormPreloader/TaskFormPreloader"
+import { AppContext } from "../../context"
 
-function TaskForm({
-	                  isLoading,
-										setTasks,
-	                  selectedTask,
-	                  setSelectedTask,
-	                  editCallback,
-	                  deleteCallback,
-	                  editedTaskPrevData,
-										setEditedTaskPrevData,
-										maxID,
-}) {
+function TaskForm({ isLoading, setTasks }) {
 
-	const [taskData, setTaskData] = useState(selectedTask)
-	const thisForm = useRef() // reference on task form
-	const [modalState, setModalState] = useState({
+	const { selectedTask, setSelectedTask, editTask, deleteTask } = useContext(AppContext)
+	const [taskData, setTaskData] = useState()  // data from selectedTask state (using for setting input values)
+	const [prevData, setPrevData] = useState()  // previous task data (using in canceling of task editing)
+	const [modalState, setModalState] = useState({  // parameters of modal element
 		isVisible: false,
-		question: null,
-		callback: null
+		question: '',
+		callback: undefined
 	})
+	const thisForm = useRef()                   // reference on task form
 
 	useEffect(() => {
-		setTaskData(selectedTask)
+		setTaskData(selectedTask.task)
 	}, [selectedTask])
 
-	// cancel editing process
-	const cancelEditing = () => {
-		// finish editing
-		if (selectedTask.isAdded) {
-			setSelectedTask({
+	const cancelEditing = () => {        // cancel task editing process
+		setPrevData(selectedTask.task)
+
+		if (selectedTask.isAdded) {        // if new task is added
+			setSelectedTask({                // set default data to selectedItem state (App)
 				task: undefined,
 				isEdited: false,
 				isAdded: false
-			})
+			})                               // and finish process
 		} else {
-			setSelectedTask(prevState => {
-				return {...prevState, isEdited: false, isAdded: false}
+			setSelectedTask({                // else finish editing process
+				task: selectedTask.task,       // with previous selected task data
+				isEdited: false,
+				isAdded: false
 			})
-			// set to taskData state previous data
-			setTaskData(editedTaskPrevData)
-			// clear previous task data state in App
-			setEditedTaskPrevData(undefined)
+			setTaskData(prevData)            // set to taskData state previous data
 		}
 	}
 
-	// accept changes in edited task
-	const confirmEditing = () => {
-		// get collection of all task form's children
-		const formElements = thisForm.current.elements
-		console.log(formElements)
-		// collect necessary values in object
-		const creatingTaskData = {
-			// get task id from taskData state
-			id: selectedTask.isAdded ? +maxID + 1 : taskData.task.id,
+	const confirmEditing = () => {                     // accept changes in edited task
+		const formElements = thisForm.current.elements   // get collection of all task form's children
+		const creatingTaskData = {                       // collect necessary values in object
+			id: selectedTask.task.id,
 			name: formElements.name.value,
 			description: formElements.description.value,
 			date: formElements.date.value,
@@ -66,35 +54,32 @@ function TaskForm({
 			status: formElements.status.value
 		}
 
-		if (selectedTask.isAdded) {
-			setTasks(prevState => {
+		if (selectedTask.isAdded) {                      // if new task is adding
+			setTasks(prevState => {                        // set created task to tasks state (App)
 				return [...prevState, creatingTaskData]
 			})
 		} else {
-			// set edited data to tasks array in App
-			setTasks(prevState => {
-				// loop over the tasks
-				return prevState.map(task => {
-					//find the provided id and update data
-					//else returns unmodified item
-					return task.id === taskData.task.id ?
-						{...creatingTaskData} :
-						task
+			setTasks(prevState => {                        // set edited task to tasks state (App)
+				return prevState.map(task => {               // loop over the tasks
+					return task.id === selectedTask.task.id ?  // find the edited task
+						{...creatingTaskData} :                  // and update data
+						task                                     // else returns unmodified item
 				})
 			})
 		}
 
-		// set edited data to selectedTask state and finish editing
-		setSelectedTask(prevState => {
-			return {...prevState, task: {...creatingTaskData}, isEdited: false, isAdded: false}
+		setSelectedTask({
+			task: {...creatingTaskData},                   // set edited data to selectedTask state
+			isEdited: false,                               // and finish editing
+			isAdded: false
 		})
 	}
 
-	const confirmDelete = () => {
-		setModalState({
+	const confirmDelete = () => {      // accept removing task
+		setModalState({            // set state of modal
 			isVisible: true,
 			question: 'Удалить задачу?',
-			callback: deleteCallback
+			callback: deleteTask
 		})
 	}
 
@@ -102,48 +87,42 @@ function TaskForm({
 		<form className={ stl.wrapper } id='task-form' ref={ thisForm }>
 			{
 				isLoading ?
-					<div className={ stl.loading }>
-						<svg width="100%" height="12" viewBox="0 0 42 12" fill="none" xmlns="http://www.w3.org/2000/svg" className={ stl.preloader }>
-							<path d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6Z" fill="#2D8D79"/>
-							<path d="M27 6C27 9.31371 24.3137 12 21 12C17.6863 12 15 9.31371 15 6C15 2.68629 17.6863 0 21 0C24.3137 0 27 2.68629 27 6Z" fill="#2D8D79"/>
-							<path d="M42 6C42 9.31371 39.3137 12 36 12C32.6863 12 30 9.31371 30 6C30 2.68629 32.6863 0 36 0C39.3137 0 42 2.68629 42 6Z" fill="#2D8D79"/>
-						</svg>
-					</div> :
-					taskData.task ?
-						<>
+					<TaskFormPreloader/> :
+					taskData ?
+						<Fragment>
 							<IMDTextArea
-								className={`${stl.name}  ${taskData.isEdited && stl.edited}`}
+								className={`${stl.name}  ${selectedTask.isEdited && stl.edited}`}
 								taskDataType='name'
-								data={ taskData.task.name }
-								isEdited={ taskData.isEdited }
+								data={ taskData.name }
+								isEdited={ selectedTask.isEdited }
 							/>
 
 							<StatusRadio
-								data={ taskData.task.status }
-								isEdited={ taskData.isEdited }
+								data={ taskData.status }
+								isEdited={ selectedTask.isEdited }
 							/>
 
 							<IMDTextArea
-								className={`${stl.description} ${taskData.isEdited && stl.edited}`}
+								className={`${stl.description} ${selectedTask.isEdited && stl.edited}`}
 								taskDataType='description'
-								data={ taskData.task.description || '' }
-								isEdited={ taskData.isEdited }
+								data={ taskData.description || '' }
+								isEdited={ selectedTask.isEdited }
 							/>
 
 							<div
 								className={
-									`${stl.datetime} ${taskData.isEdited && stl.edited}`
+									`${stl.datetime} ${selectedTask.isEdited && stl.edited}`
 								}
 							>
 								<IMDInput
 									taskDataType='date'
-									data={ taskData.task.date || '' }
-									isEdited={ taskData.isEdited }
+									data={ taskData.date || '' }
+									isEdited={ selectedTask.isEdited }
 								/>
 								<IMDInput
 									taskDataType='time'
-									data={ taskData.task.time || '' }
-									isEdited={ taskData.isEdited }
+									data={ taskData.time || '' }
+									isEdited={ selectedTask.isEdited }
 								/>
 							</div>
 							<div className={ stl.btns }>
@@ -168,7 +147,7 @@ function TaskForm({
 												text='Редактировать'
 												type='edit'
 												size='lg'
-												onClick={ () => editCallback(taskData.task) }
+												onClick={ () => editTask() }
 											/>
 											<IMDButton
 												text='Удалить'
@@ -190,7 +169,7 @@ function TaskForm({
 									/> :
 									null
 							}
-						</> :
+						</Fragment> :
 						<div className={ stl.empty }>
 							Выберите задачу<br/>
 							или создайте новую

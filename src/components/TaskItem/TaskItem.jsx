@@ -1,23 +1,17 @@
 import stl from './TaskItem.module.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
-import {useRef, useState} from "react"
+import {useContext, useState} from "react"
 import TaskItemData from "../TaskItemData/TaskItemData"
+import { AppContext } from '../../context'
 
-function TaskItem({
-	                  task,
-	                  setTasks,
-	                  editCallback,
-	                  deleteCallback,
-	                  selectTaskCallback,
-	                  selectedID
-}) {
+function TaskItem({ task }) {
 
-	const thisTaskItem = useRef()
+	const { selectedTask, setSelectedTask, changeStatus, deleteTask, editTask } = useContext(AppContext)
 
 	let elemClasses = [stl.wrapper] // get necessary CSS-classes and set in array
 
-	switch (task.status) { // check task status and add needed CSS-class
+	switch (task.status) { // check task status and add necessary CSS-class
 		case 'waiting':
 			elemClasses.push(stl.taskWaiting)
 			break
@@ -31,55 +25,34 @@ function TaskItem({
 			break
 	}
 
-	// state of modal window
-	const [modalState, setModalState] = useState({
-		isVisible: false,
-		question: null,
-		callback: null
+	const [modalState, setModalState] = useState({ // state of modal window
+		isVisible: false,      // visibility
+		question: null,        // dialog question
+		callback: null         // function on enter btn
 	})
 
-	// callback for changing status of current task
-	const changeStatus = (status) => {
-		setTasks(tasks => {
-			// loop over the tasks
-			return tasks.map(taskItem => {
-				//find the provided id and updates status
-				//else returns unmodified item
-				return taskItem.id === task.id ?
-					{...taskItem, status: status} :
-					taskItem
-			})
-		})
-	}
+	const showModal = btnType => {   // open modal and set parameters
+		let question, callback
 
-	// open modal and set parameters
-	const showModal = (btnType) => {
-		// read 'btnType' and set necessary ModalState
-		switch (btnType) {
+		switch (btnType) {             // read 'btnType' and set necessary question and callback
 			case 'complete':
-				setModalState({
-					isVisible: true,
-					question: 'Пометить задачу выполненной?', // text in Modal
-					callback: () => changeStatus('complete') // callback for enter button
-				})
+				[question, callback] = ['Пометить задачу выполненной?', () => changeStatus(task.id, 'complete')]
 				break
 			case 'inProcess':
-				setModalState({
-					isVisible: true,
-					question: 'Начать выполнение задачи?',
-					callback: () => changeStatus('inProcess')
-				})
+				[question, callback] = ['Начать выполнение задачи?', () => changeStatus(task.id, 'inProcess')]
 				break
 			case 'delete':
-				setModalState({
-					isVisible: true,
-					question: 'Удалить задачу?',
-					callback: () => deleteCallback(task.id)
-				})
+				[question, callback] = ['Удалить задачу?', () => deleteTask(task.id)]
 				break
 			default:
 				break
 		}
+
+		setModalState({         // set new state
+			isVisible: true,
+			question: question,
+			callback: callback
+		})
 	}
 
 	// convert date value to "dd.mm.yyyy" format by RegExp
@@ -88,16 +61,26 @@ function TaskItem({
 		return date.replace(dateRegExp, '$3.$2.$1')
 	}
 
+	// if id of selected task (context) and id of current task item are equal
+	if (selectedTask.task && selectedTask.task.id === task.id) {
+		elemClasses.push( stl.selected ) // add CSS-class '.selected" to the item
+	}
+
+	// callback for setting selected task
+	const selectTask = () => {
+		setSelectedTask({
+			task: task,
+			isEdited: false
+		})
+	}
+
 	return (
 		<li
-			// Turn array into string and set CSS-classes
-			className={`${elemClasses.join(' ')} ${selectedID === task.id ? stl.selected : ''}` }
+			className={ elemClasses.join(' ') } // Turn array into string and set CSS-classes
 			id={ task.id }
-			ref={ thisTaskItem }
 		>
-			<div className={ stl.inner } onClick={ () => selectTaskCallback(task) }>
+			<div className={ stl.inner } onClick={ selectTask }>
 				<span className={ stl.name }>{ task.name }</span>
-
 				{ // check description presence
 					task.description ?
 						<TaskItemData
@@ -107,7 +90,6 @@ function TaskItem({
 						/> :
 						null
 				}
-
 				{ // check date AND time presence
 					(task.date !== null || task.time !== null) ?
 						<div className={ stl.datetime }>
@@ -151,7 +133,7 @@ function TaskItem({
 				<IMDButton
 					type='edit'
 					size='sm'
-					onClick={ () => editCallback(task.id) }
+					onClick={ () => editTask(task.id) }
 				/>
 
 				<IMDButton
