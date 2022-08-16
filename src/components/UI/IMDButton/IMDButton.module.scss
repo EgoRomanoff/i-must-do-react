@@ -43,7 +43,8 @@
   &.btnDelete,
   &.btnEnter,
   &.btnCancel,
-  &.btnSave {
+  &.btnSave,
+  &.btnClose {
 
     &:hover svg {
       fill: $white;
@@ -120,6 +121,20 @@
       color: $white;
     }
   }
+  // large Close
+  &.btnClose {
+    border-color: $c-cancel;
+    color: $c-cancel;
+
+    & svg {
+      fill: $c-cancel;
+    }
+
+    &:hover {
+      background: $c-cancel;
+      color: $white;
+    }
+  }
 }
 // small buttons
 .btnSm {
@@ -130,7 +145,7 @@
   height: 28px;
   border: none;
   font-size: .875rem;
-  background: transparent;
+  background: $white;
 
   // small Complete
   &.btnComplete:hover {

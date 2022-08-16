@@ -1,11 +1,11 @@
 @import 'src/scss/_vars.scss';
 
-.wrapper {
+.inner {
   position: relative;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  padding: 15px 25px 15px 15px;
+  padding: 20px 15px 15px;
   //opacity: 0;
   transition: opacity .25s ease-out;
 

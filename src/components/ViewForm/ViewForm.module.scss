@@ -1,0 +1,84 @@
+@import 'src/scss/_vars.scss';
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  //opacity: 0;
+  transition: opacity .25s ease-out;
+
+  //&.showed {
+  //  opacity: 1;
+  //}
+}
+
+.title {
+  font-size: .875rem;
+  color: $font-c-secondary;
+  font-weight: 400;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.name, .description {
+  padding: 10px 20px 10px 10px;
+  border: 1px solid transparent;
+}
+
+.name {
+  @include font($font-f-regular, 500);
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+}
+
+.description {
+  @include font($font-f-regular, 500);
+
+  color: $font-c-secondary;
+  font-size: 1rem;
+  margin-bottom: 5px;
+
+  &.empty {
+    opacity: .5;
+  }
+}
+
+.datetime {
+  position: relative;
+  display: flex;
+  margin-bottom: 50px;
+  font-size: .875rem;
+}
+
+.date, .time {
+  height: 26px;
+  padding: 5px 30px 5px 10px;
+  border: 1px solid transparent;
+  background-position: right 10px center;
+  background-size: 12px;
+  background-repeat: no-repeat;
+}
+
+.date {
+  width: 130px;
+  background-image: url("../../img/date__icon.svg");
+}
+
+.time {
+  width: 85px;
+  background-image: url("../../img/time__icon.svg");
+}
+
+.btns {
+  display: flex;
+  margin-left: 10px;
+  // add gap by left margin between all elements in this div
+  & * + * {
+    margin-left: 10px;
+  }
+
+  & > *:last-child {
+    margin-left: auto;
+  }
+}

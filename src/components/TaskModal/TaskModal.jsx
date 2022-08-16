@@ -1,43 +1,40 @@
 import stl from './TaskModal.module.scss'
 import IMDButton from "../UI/IMDButton/IMDButton"
-import {useRef} from "react"
+import {Fragment, useRef} from "react"
 
-function TaskModal({ className, isVisible, setModalState, text, callback, size }) {
+function TaskModal({ isVisible, setModalState, text, callback, size }) {
 
 	const thisModal = useRef(null) // link to current modal
-
-	const closeModal = () => {
-		// set modalState to default values
-		setModalState({
-			isVisible: false,
-			question: null,
-			callback: null
-		})
-		// and remove click listener
-		document.removeEventListener('click', isModalClickHandler)
-	}
-
-	// handler for checking clicks outside the modal
-	const isModalClickHandler = e => {
-		// console.log(thisModal.current)
-		!thisModal.current.contains(e.target) && closeModal()
-	}
+	const elemClasses = [stl.wrapper, size === 'lg' ? stl.modalLG : stl.modalSM]
 
 	if (isVisible === true) {
 		setTimeout(() => {
+			thisModal.current.classList.add( stl.showed )
 			document.addEventListener('click', isModalClickHandler)
 		}, 0)
 	}
 
+	const closeModal = () => {
+		thisModal.current.classList.remove( stl.showed )
+		document.removeEventListener('click', isModalClickHandler)  // and remove click listener
+
+		setTimeout(() => {
+			setModalState({              // set modalState to default values
+				isVisible: false,
+				question: null,
+				callback: null
+			})
+		}, 200)
+	}
+
+	const isModalClickHandler = e => {          // handler for checking clicks outside the modal
+		!thisModal.current.contains(e.target) && closeModal()
+	}
+
 	return (
-		<>
-			{
-				size === 'lg' ?
-					<div className={ stl.overlay }></div> :
-					null
-			}
+		<Fragment>
 			<div
-				className={`${ stl.wrapper } ${ size === 'lg' ? stl.modalLG : stl.modalSM }`}
+				className={elemClasses.join(' ')}
 				ref={ thisModal }>
 			<span className={ stl.text }>
 				{ text }
@@ -60,7 +57,12 @@ function TaskModal({ className, isVisible, setModalState, text, callback, size }
 					/>
 				</div>
 			</div>
-		</>
+			{
+				size === 'lg' ?
+					<div className={ stl.overlay }></div> :
+					null
+			}
+		</Fragment>
 	)
 }
 

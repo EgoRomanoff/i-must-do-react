@@ -9,6 +9,7 @@
   height: 80px;
   flex-shrink: 0;
   transition: background .2s ease;
+  animation: fadeIn .25s ease-in-out forwards;
 
   &:hover {
     background: rgba($green-500, .1);
@@ -106,5 +107,14 @@
 
   & .btns {
     display: none;
+  }
+}
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }

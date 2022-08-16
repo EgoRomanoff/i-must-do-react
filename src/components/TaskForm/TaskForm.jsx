@@ -7,6 +7,8 @@ import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
 import TaskFormPreloader from "../TaskFormPreloader/TaskFormPreloader"
 import { AppContext } from "../../context"
+import EditForm from "../EditForm/EditForm";
+import ViewForm from "../ViewForm/ViewForm";
 
 function TaskForm({ isLoading, setTasks }) {
 
@@ -23,6 +25,14 @@ function TaskForm({ isLoading, setTasks }) {
 	useEffect(() => {
 		setTaskData(selectedTask.task)
 	}, [selectedTask])
+
+	const closeForm = () => {
+		setSelectedTask({                // set default data to selectedItem state (App)
+			task: undefined,
+			isEdited: false,
+			isAdded: false
+		})
+	}
 
 	const cancelEditing = () => {        // cancel task editing process
 		setPrevData(selectedTask.task)
@@ -84,98 +94,107 @@ function TaskForm({ isLoading, setTasks }) {
 	}
 
 	return (
-		<form className={ stl.wrapper } id='task-form' ref={ thisForm }>
+		<div className={ stl.wrapper } ref={ thisForm }>
 			{
 				isLoading ?
 					<TaskFormPreloader/> :
 					taskData ?
-						<Fragment>
-							<IMDTextArea
-								className={`${stl.name}  ${selectedTask.isEdited && stl.edited}`}
-								taskDataType='name'
-								data={ taskData.name }
-								isEdited={ selectedTask.isEdited }
-							/>
-
-							<StatusRadio
-								data={ taskData.status }
-								isEdited={ selectedTask.isEdited }
-							/>
-
-							<IMDTextArea
-								className={`${stl.description} ${selectedTask.isEdited && stl.edited}`}
-								taskDataType='description'
-								data={ taskData.description || '' }
-								isEdited={ selectedTask.isEdited }
-							/>
-
-							<div
-								className={
-									`${stl.datetime} ${selectedTask.isEdited && stl.edited}`
-								}
-							>
-								<IMDInput
-									taskDataType='date'
-									data={ taskData.date || '' }
-									isEdited={ selectedTask.isEdited }
-								/>
-								<IMDInput
-									taskDataType='time'
-									data={ taskData.time || '' }
-									isEdited={ selectedTask.isEdited }
-								/>
-							</div>
-							<div className={ stl.btns }>
-								{
-									selectedTask.isEdited ?
-										<>
-											<IMDButton
-												text='Сохранить'
-												type='save'
-												size='lg'
-												onClick={ confirmEditing }
-											/>
-											<IMDButton
-												text='Отмена'
-												type='cancel'
-												size='lg'
-												onClick={ cancelEditing }
-											/>
-										</> :
-										<>
-											<IMDButton
-												text='Редактировать'
-												type='edit'
-												size='lg'
-												onClick={ () => editTask() }
-											/>
-											<IMDButton
-												text='Удалить'
-												type='delete'
-												size='lg'
-												onClick={ confirmDelete }
-											/>
-										</>
-								}
-							</div>
-							{
-								modalState.isVisible ?
-									<TaskModal
-										isVisible={ modalState.isVisible }
-										setModalState={ setModalState }
-										text={ modalState.question }
-										callback={ modalState.callback }
-										size='lg'
-									/> :
-									null
-							}
-						</Fragment> :
+						selectedTask.isEdited ?
+							<EditForm/> :
+							<ViewForm/> :
 						<div className={ stl.empty }>
 							Выберите задачу<br/>
 							или создайте новую
 						</div>
+						// <Fragment>
+						// 	<IMDTextArea
+						// 		className={`${stl.name}  ${selectedTask.isEdited && stl.edited}`}
+						// 		taskDataType='name'
+						// 		data={ taskData.name }
+						// 		isEdited={ selectedTask.isEdited }
+						// 	/>
+						//
+						// 	<StatusRadio
+						// 		data={ taskData.status }
+						// 		isEdited={ selectedTask.isEdited }
+						// 	/>
+						//
+						// 	<IMDTextArea
+						// 		className={`${stl.description} ${selectedTask.isEdited && stl.edited}`}
+						// 		taskDataType='description'
+						// 		data={ taskData.description || '' }
+						// 		isEdited={ selectedTask.isEdited }
+						// 	/>
+						//
+						// 	<div
+						// 		className={
+						// 			`${stl.datetime} ${selectedTask.isEdited && stl.edited}`
+						// 		}
+						// 	>
+						// 		<IMDInput
+						// 			taskDataType='date'
+						// 			data={ taskData.date || '' }
+						// 			isEdited={ selectedTask.isEdited }
+						// 		/>
+						// 		<IMDInput
+						// 			taskDataType='time'
+						// 			data={ taskData.time || '' }
+						// 			isEdited={ selectedTask.isEdited }
+						// 		/>
+						// 	</div>
+						// 	<div className={ stl.btns }>
+						// 		{
+						// 			selectedTask.isEdited ?
+						// 				<>
+						// 					<IMDButton
+						// 						text='Сохранить'
+						// 						type='save'
+						// 						size='lg'
+						// 						onClick={ confirmEditing }
+						// 					/>
+						// 					<IMDButton
+						// 						text='Отмена'
+						// 						type='cancel'
+						// 						size='lg'
+						// 						onClick={ cancelEditing }
+						// 					/>
+						// 				</> :
+						// 				<>
+						// 					<IMDButton
+						// 						text='Редактировать'
+						// 						type='edit'
+						// 						size='lg'
+						// 						onClick={ () => editTask() }
+						// 					/>
+						// 					<IMDButton
+						// 						text='Удалить'
+						// 						type='delete'
+						// 						size='lg'
+						// 						onClick={ confirmDelete }
+						// 					/>
+						// 					<IMDButton
+						// 						text='Закрыть'
+						// 						type='close'
+						// 						size='lg'
+						// 						onClick={ closeForm }
+						// 					/>
+						// 				</>
+						// 		}
+						// 	</div>
+						// 	{
+						// 		modalState.isVisible ?
+						// 			<TaskModal
+						// 				isVisible={ modalState.isVisible }
+						// 				setModalState={ setModalState }
+						// 				text={ modalState.question }
+						// 				callback={ modalState.callback }
+						// 				size='lg'
+						// 			/> :
+						// 			null
+						// 	}
+						// </Fragment> :
 			}
-		</form>
+		</div>
 	)
 }
 

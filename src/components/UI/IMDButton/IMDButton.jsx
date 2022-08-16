@@ -49,6 +49,9 @@ function IMDButton({ text = '', type, size, onClick }) {
 		case 'cancel':
 			elemClasses.push(stl.btnCancel)
 			break
+		case 'close':
+			elemClasses.push(stl.btnClose)
+			break
 		default:
 			break
 	}
