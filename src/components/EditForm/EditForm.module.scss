@@ -4,7 +4,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  flex: 1 1 100%;
+  width: 100%;
 
   &.showed {
     animation: fadeIn .2s ease-out forwards;
