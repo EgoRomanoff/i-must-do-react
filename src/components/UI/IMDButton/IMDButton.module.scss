@@ -196,4 +196,13 @@
       background: $c-cancel;
     }
   }
+  // small Close
+  &.btnClose {
+    border-color: $c-close;
+    color: $c-close;
+
+    &:hover {
+      background: $c-close;
+    }
+  }
 }

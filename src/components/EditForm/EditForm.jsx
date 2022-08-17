@@ -2,28 +2,16 @@ import stl from './EditForm.module.scss'
 import IMDTextArea from "../UI/IMDTextArea/IMDTextArea"
 import StatusRadio from "../StatusRadio/StatusRadio"
 import IMDInput from "../UI/IMDInput/IMDInput"
-import { useContext, useEffect, useRef, useState} from "react"
+import { useContext, useRef } from "react"
 import IMDButton from "../UI/IMDButton/IMDButton"
 import { AppContext } from "../../context"
 
-function EditForm({ taskData, isLoading, setTasks }) {
+function EditForm({ taskData, setTasks }) {
 
-	const { selectedTask, setSelectedTask, editTask, deleteTask } = useContext(AppContext)
-	// const [taskData, setTaskData] = useState()  // data from selectedTask state (using for setting input values)
-	const [prevData, setPrevData] = useState()  // previous task data (using in canceling of task editing)
-	// const [modalState, setModalState] = useState({  // parameters of modal element
-	// 	isVisible: false,
-	// 	question: '',
-	// 	callback: undefined
-	// })
-	const thisForm = useRef()                   // reference on task form
-
-	// useEffect(() => {
-	// 	setTaskData(selectedTask.task)
-	// }, [selectedTask])
+	const { selectedTask, setSelectedTask } = useContext(AppContext)
+	const thisForm = useRef()            // reference on task form
 
 	const cancelEditing = () => {        // cancel task editing process
-		setPrevData(selectedTask.task)
 
 		if (selectedTask.isAdded) {        // if new task is added
 			setSelectedTask({                // set default data to selectedItem state (App)
@@ -37,7 +25,6 @@ function EditForm({ taskData, isLoading, setTasks }) {
 				isEdited: false,
 				isAdded: false
 			})
-			// setTaskData(prevData)            // set to taskData state previous data
 		}
 	}
 
@@ -50,6 +37,14 @@ function EditForm({ taskData, isLoading, setTasks }) {
 			date: formElements.date.value,
 			time: formElements.time.value,
 			status: formElements.status.value
+		}
+
+		if (!formElements.name.length) {                                 // if task name is empty
+			formElements.name.parentNode.classList.add( stl.invalid )      // show error style
+			setTimeout(() => {
+				formElements.name.parentNode.classList.remove( stl.invalid ) // for 3 seconds
+			}, 3000)
+			return false
 		}
 
 		if (selectedTask.isAdded) {                      // if new task is adding
@@ -74,36 +69,51 @@ function EditForm({ taskData, isLoading, setTasks }) {
 	}
 
 	return (
-		<form className={ stl.inner } ref={ thisForm }>
+		<form className={ `${stl.inner} ${stl.showed}`} ref={ thisForm }>
+			<header className={ stl.header }>
+				<h4 className={ stl.title }>
+					{ selectedTask.isAdded ? 'Создание новой задачи' : 'Редактирование задачи'}
+				</h4>
+
+				<IMDButton
+					text='Отмена'
+					type='cancel'
+					size='lg'
+					onClick={ cancelEditing }
+				/>
+			</header>
+
+			<StatusRadio
+				data={ taskData.status }
+				isEdited={ !selectedTask.isAdded }
+			/>
+
 			<IMDTextArea
 				className={ stl.name }
 				taskDataType='name'
-				data={ selectedTask.task.name }
-				isEdited={ true }
-			/>
-
-			<StatusRadio
-				data={ selectedTask.task.status }
-				isEdited={ true }
+				data={ taskData.name }
+				isRequired={ true }
+				placeholder='Введите название задачи...'
+				maxLength='100'
 			/>
 
 			<IMDTextArea
 				className={ stl.description }
 				taskDataType='description'
-				data={ selectedTask.task.description || '' }
-				isEdited={ true }
+				data={ taskData.description || '' }
+				isRequired={ false }
+				placeholder='Описания нет'
+				maxLength='500'
 			/>
 
 			<div className={ stl.datetime }>
 				<IMDInput
 					taskDataType='date'
-					data={ selectedTask.task.date || '' }
-					isEdited={ true }
+					data={ taskData.date || '' }
 				/>
 				<IMDInput
 					taskDataType='time'
-					data={ selectedTask.task.time || '' }
-					isEdited={ true }
+					data={ taskData.time || '' }
 				/>
 			</div>
 
@@ -113,12 +123,6 @@ function EditForm({ taskData, isLoading, setTasks }) {
 					type='save'
 					size='lg'
 					onClick={ confirmEditing }
-				/>
-				<IMDButton
-					text='Отмена'
-					type='cancel'
-					size='lg'
-					onClick={ cancelEditing }
 				/>
 			</div>
 		</form>

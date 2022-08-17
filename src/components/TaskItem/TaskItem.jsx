@@ -7,7 +7,7 @@ import { AppContext } from '../../context'
 
 function TaskItem({ task }) {
 
-	const { selectedTask, setSelectedTask, changeStatus, deleteTask, editTask } = useContext(AppContext)
+	const { selectedTask, setSelectedTask, convertDate, changeStatus, deleteTask, editTask } = useContext(AppContext)
 
 	let elemClasses = [stl.wrapper] // get necessary CSS-classes and set in array
 
@@ -53,12 +53,6 @@ function TaskItem({ task }) {
 			question: question,
 			callback: callback
 		})
-	}
-
-	// convert date value to "dd.mm.yyyy" format by RegExp
-	const convertDate = (date) => {
-		const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/
-		return date.replace(dateRegExp, '$3.$2.$1')
 	}
 
 	// if id of selected task (context) and id of current task item are equal

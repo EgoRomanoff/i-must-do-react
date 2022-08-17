@@ -13,8 +13,8 @@
   width: 100%;
   height: fit-content;
   min-height: max-content;
-  padding: 10px 20px 10px 10px;
-  border: 1px solid transparent;
+  padding: 10px 10px 25px;
+  border: 1px solid $green-100;
   border-radius: $radius-primary;
   color: inherit;
   font-family: inherit;
@@ -23,4 +23,15 @@
   letter-spacing: inherit;
   resize: none;
   overflow: hidden;
+  transition: background .2s ease,
+  border-color .2s ease;
+
+  &:hover {
+    background: $green-100;
+  }
+
+  &:focus {
+    border-color: $green-500;
+    background: $green-100;
+  }
 }

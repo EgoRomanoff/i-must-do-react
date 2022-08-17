@@ -5,17 +5,13 @@
   display: flex;
   width: min-content;
   height: 26px;
-
-  & + & {
-    margin-left: 10px;
-  }
 }
 
 .input {
   outline: none;
   width: 100%;
   padding: 5px 10px;
-  border: 1px solid transparent;
+  border: 1px solid $green-100;
   border-radius: $radius-primary;
   color: $font-c-primary;
   font-family: inherit;
@@ -24,6 +20,15 @@
   letter-spacing: inherit;
   resize: none;
   overflow: hidden;
+
+  &:hover {
+    background: $green-100;
+  }
+
+  &:focus {
+    border-color: $green-500;
+    background: $green-100;
+  }
 
   &[type="date"], &[type="time"] {
     font-size: inherit;
@@ -43,7 +48,7 @@
   }
 
   &[type="time"] {
-    width: 85px;
+    width: 95px;
 
     &::-webkit-calendar-picker-indicator {
       background-image: url('../../../img/time__icon.svg');

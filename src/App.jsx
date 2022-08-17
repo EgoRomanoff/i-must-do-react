@@ -40,6 +40,11 @@ function App() {
 
   useEffect(() => { getTasks() }, [])     // get tasks data from server at first render
 
+  const convertDate = (date) => {    // convert date value to "dd.mm.yyyy" format by RegExp
+    const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/
+    return date.replace(dateRegExp, '$3.$2.$1')
+  }
+
   const addTask = () => {
     const maxID = tasks.reduce((prevID, task) => {
       return prevID < task.id ? task.id : prevID
@@ -94,19 +99,18 @@ function App() {
       setTasks(tasks => {
         return tasks.filter(task => task.id !== selectedTask.task.id)
       })
+      setSelectedTask({            // set default state to selectedTask
+        task: undefined,
+        isEdited: false,
+        isAdded: false,
+      })
     }
-
-    setSelectedTask({            // set default state to selectedTask
-      task: undefined,
-      isEdited: false,
-      isAdded: false,
-    })
   }
 
   return (
     <div className={ stl.wrapper }>
       <AppContext.Provider value={{
-        tasks, selectedTask, setSelectedTask, changeStatus, deleteTask, editTask
+        tasks, selectedTask, setSelectedTask, changeStatus, deleteTask, editTask, convertDate
       }}>
         <Tasks
           isLoading={ isLoading }

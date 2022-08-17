@@ -5,15 +5,15 @@ import IMDButton from "../UI/IMDButton/IMDButton"
 import TaskModal from "../TaskModal/TaskModal"
 import { AppContext } from "../../context"
 
-function ViewForm() {
+function ViewForm({ taskData }) {
 
-	const { selectedTask, setSelectedTask, editTask, deleteTask } = useContext(AppContext)
+	const { setSelectedTask, convertDate, editTask, deleteTask } = useContext(AppContext)
 	const [modalState, setModalState] = useState({  // parameters of modal element
 		isVisible: false,
 		question: '',
 		callback: undefined
 	})
-	const thisForm = useRef()                   // reference on task form
+	const thisForm = useRef()          // reference on task form
 
 	const confirmDelete = () => {      // accept removing task
 		setModalState({            // set state of modal
@@ -32,25 +32,42 @@ function ViewForm() {
 	}
 
 	return (
-		<form className={ stl.inner } ref={thisForm}>
-			<h4 className={ stl.title }>Просмотр задачи</h4>
-			<span className={ stl.name }>{ selectedTask.task.name }</span>
+		<form className={ `${stl.inner} ${stl.showed}` } ref={thisForm}>
+			<header className={ stl.header }>
+				<h4 className={ stl.title }>Просмотр задачи</h4>
+				<IMDButton
+					text='Закрыть'
+					type='close'
+					size='lg'
+					onClick={ closeForm }
+				/>
+			</header>
 
 			<StatusRadio
-				data={ selectedTask.task.status }
+				data={ taskData.status }
 				isEdited={ false }
 			/>
-			{
-				selectedTask.task.description && (
-					<span className={ stl.description }>
-						{ selectedTask.task.description }
-					</span>
-				)
-			}
+
+			<span className={ stl.name }>{ taskData.name }</span>
+
+			<span className={
+				`${ stl.description } ${ !taskData.description && stl.empty }`
+			}>
+				{ taskData.description || 'Описания нет'}
+			</span>
 
 			<div className={ stl.datetime }>
-				<span className={ stl.date }>{ selectedTask.task.date }</span>
-				<span className={ stl.time }>{ selectedTask.task.time }</span>
+				<span className={
+					`${ stl.date } ${ !taskData.date && stl.empty }`
+				}>
+					{ taskData.date ? convertDate(taskData.date) : '--.--.----' }
+				</span>
+
+				<span className={
+					`${ stl.time } ${ !taskData.time && stl.empty }`
+				}>
+					{ taskData.time || '--:--'}
+				</span>
 			</div>
 
 			<div className={ stl.btns }>
@@ -65,12 +82,6 @@ function ViewForm() {
 					type='delete'
 					size='lg'
 					onClick={ confirmDelete }
-				/>
-				<IMDButton
-					text='Закрыть'
-					type='close'
-					size='lg'
-					onClick={ closeForm }
 				/>
 			</div>
 			{

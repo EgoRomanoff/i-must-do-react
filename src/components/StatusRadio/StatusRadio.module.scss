@@ -4,9 +4,8 @@
   position: relative;
   display: flex;
   width: min-content;
-  margin-left: 10px;
-  padding-right: 40px;
-  margin-bottom: 30px;
+  margin-left: auto;
+  padding-left: 40px;
 }
 
 .input {
@@ -90,20 +89,6 @@
     &:hover {
       opacity: 1;
     }
-  }
-
-  &:before {
-    position: absolute;
-    content: '';
-    bottom: 6px;
-    right: 6px;
-    width: 12px;
-    height: 12px;
-    background-image: url('../../img/edit__icon.svg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: .7;
   }
 }
 
