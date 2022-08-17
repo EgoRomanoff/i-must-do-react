@@ -9,6 +9,7 @@ import { AppContext } from "../../context"
 function EditForm({ taskData, setTasks }) {
 
 	const { selectedTask, setSelectedTask } = useContext(AppContext)
+
 	const thisForm = useRef()            // reference on task form
 
 	const cancelEditing = () => {        // cancel task editing process
@@ -38,8 +39,8 @@ function EditForm({ taskData, setTasks }) {
 			time: formElements.time.value,
 			status: formElements.status.value
 		}
-
-		if (!formElements.name.length) {                                 // if task name is empty
+		console.log(formElements.name.value)
+		if (!formElements.name.value) {                                 // if task name is empty
 			formElements.name.parentNode.classList.add( stl.invalid )      // show error style
 			setTimeout(() => {
 				formElements.name.parentNode.classList.remove( stl.invalid ) // for 3 seconds

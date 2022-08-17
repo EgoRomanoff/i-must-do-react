@@ -3,7 +3,7 @@ import {useEffect, useState} from "react"
 
 function IMDInput({ taskDataType, data }) {
 
-	const [value, setValue] = useState('')
+	const [value, setValue] = useState(String(data))
 
 	useEffect(() => {
 		setValue(data)

@@ -12,17 +12,9 @@
   transition: color .2s ease,
               background .2s ease;
 
-  &:hover {
-    color: $white;
-  }
-
   & svg {
     pointer-events: none;
     transition: fill .2s ease;
-  }
-
-  &:hover svg {
-    fill: $white;
   }
 }
 // large buttons
@@ -34,21 +26,6 @@
 
   & svg {
     margin-left: 10px;
-  }
-  // white svg for all hover large buttons
-  &.btnAdd,
-  &.btnComplete,
-  &.btnEdit,
-  &.btnInProcess,
-  &.btnDelete,
-  &.btnEnter,
-  &.btnCancel,
-  &.btnSave,
-  &.btnClose {
-
-    &:hover svg {
-      fill: $white;
-    }
   }
 
   // large Add
@@ -62,7 +39,6 @@
 
     &:hover {
       background: $green-500;
-      color: $white;
     }
   }
   // large Edit
@@ -76,7 +52,6 @@
 
     &:hover {
       background: $c-edit;
-      color: $white;
     }
   }
   // large Delete
@@ -90,7 +65,6 @@
 
     &:hover {
       background: $c-delete;
-      color: $white;
     }
   }
   // large Save
@@ -104,7 +78,6 @@
 
     &:hover {
       background: $c-save;
-      color: $white;
     }
   }
   // large Cancel
@@ -118,7 +91,6 @@
 
     &:hover {
       background: $c-cancel;
-      color: $white;
     }
   }
   // large Close
@@ -132,7 +104,6 @@
 
     &:hover {
       background: $c-cancel;
-      color: $white;
     }
   }
 }
@@ -173,10 +144,6 @@
     width: 60px;
     border: 1px solid;
     border-radius: $radius-primary;
-
-    &:hover {
-      color: $white;
-    }
   }
   // small Enter
   &.btnEnter {
@@ -204,5 +171,26 @@
     &:hover {
       background: $c-close;
     }
+  }
+}
+
+.btn:not(:disabled) {
+
+  &:hover {
+    color: $white;
+
+    & > svg {
+      fill: $white;
+    }
+  }
+}
+
+
+.btn:disabled {
+  opacity: .5;
+  cursor: initial;
+
+  &:hover {
+    background: $white;
   }
 }

@@ -6,7 +6,6 @@ import { AppContext } from "./context"
 
 function App() {
 
-  // ===== STATES ===== //
   const [isLoading, setIsLoading] = useState(false)    // state of checking loading status
   const [tasks, setTasks] = useState([])               // state of task list
   const [selectedTask, setSelectedTask] = useState({   // state of selected task
@@ -46,6 +45,10 @@ function App() {
   }
 
   const addTask = () => {
+    // if (selectedTask.isEdited || selectedTask.isAdded) {
+    //   return false
+    // }
+
     const maxID = tasks.reduce((prevID, task) => {
       return prevID < task.id ? task.id : prevID
     }, 1)

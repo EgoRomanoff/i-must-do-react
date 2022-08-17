@@ -11,6 +11,12 @@
   transition: background .2s ease;
   animation: fadeIn .25s ease-in-out forwards;
 
+  &:before,
+  .inner,
+  .inner > * {
+    transition: opacity .5s ease;
+  }
+
   &:hover {
     background: rgba($green-500, .1);
   }
@@ -107,6 +113,21 @@
 
   & .btns {
     display: none;
+  }
+}
+
+.unavailable {
+
+  &:before, *, *:before, *:after {
+    opacity: .65;
+  }
+
+  & .btns {
+    display: none;
+  }
+
+  &:hover {
+    background: transparent;
   }
 }
 

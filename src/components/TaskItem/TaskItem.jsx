@@ -55,17 +55,25 @@ function TaskItem({ task }) {
 		})
 	}
 
-	// if id of selected task (context) and id of current task item are equal
-	if (selectedTask.task && selectedTask.task.id === task.id) {
-		elemClasses.push( stl.selected ) // add CSS-class '.selected" to the item
+	if (selectedTask.task) {                    // if selected task is present
+		if (selectedTask.task.id === task.id) {  // and selected task and current task are equal
+			elemClasses.push( stl.selected )       // add CSS-class '.selected" to the item
+		} else if (                              // if another task is edited or new task is added
+			selectedTask.task.id !== task.id &&
+			(selectedTask.isEdited || selectedTask.isAdded)
+		) {
+			elemClasses.push( stl.unavailable )    // add CSS-class '.unavailable" to the item
+		}
 	}
 
-	// callback for setting selected task
-	const selectTask = () => {
-		setSelectedTask({
-			task: task,
-			isEdited: false
-		})
+	const selectTask = () => {  // callback for setting selected task
+		if (!(selectedTask.isEdited || selectedTask.isAdded)) {
+			setSelectedTask({
+				task: task,
+				isEdited: false,
+				isAdded: false
+			})
+		}
 	}
 
 	return (

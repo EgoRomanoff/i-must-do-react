@@ -16,7 +16,8 @@ function Header({ setSearchData, addTaskCallback }) {
 				size="lg"
 				onClick={ addTaskCallback }
 			/>
-			<IMDSearch setSearchData={ setSearchData }/>
+			<IMDSearch
+				setSearchData={ setSearchData }/>
 		</div>
 	)
 }

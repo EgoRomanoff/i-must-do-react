@@ -19,4 +19,26 @@
   cursor: col-resize;
 }
 
+@media (max-width: 768px) {
+  .wrapper {
+    width: 320px;
+    min-width: 320px;
+  }
+
+  .resizer {
+    display: none;
+  }
+}
+
+@media (max-width: 705px) {
+  .wrapper {
+    width: 320px;
+    min-width: 320px;
+  }
+
+  .resizer {
+    display: none;
+  }
+}
+
 

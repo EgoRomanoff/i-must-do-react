@@ -3,7 +3,7 @@ import {useEffect, useLayoutEffect, useRef, useState} from "react"
 
 function IMDTextArea({ className, taskDataType, data, isRequired, placeholder, maxLength }) {
 
-	const [value, setValue] = useState('')
+	const [value, setValue] = useState(String(data))
 	const thisTextarea = useRef(null)
 	const elemClasses = [stl.wrapper, className]
 
@@ -11,13 +11,13 @@ function IMDTextArea({ className, taskDataType, data, isRequired, placeholder, m
 		setValue(data)
 	}, [data])
 
-	let minHeight            // minHeight is used in useLayoutEffect
+	let height            // height is used in useLayoutEffect
 	switch (taskDataType) {
 		case 'name':
-			minHeight = 42
+			height = 44
 			break
 		case 'description':
-			minHeight = 36
+			height = 38
 			break
 		default:
 			break
@@ -25,10 +25,10 @@ function IMDTextArea({ className, taskDataType, data, isRequired, placeholder, m
 
 	// change the maximum height of the textarea depending on the content inside
 	useLayoutEffect(() => {
-		thisTextarea.current.style.minHeight = 'inherit'
-		thisTextarea.current.style.minHeight = `${Math.max(
+		thisTextarea.current.style.height = 'inherit'
+		thisTextarea.current.style.height = `${Math.max(
 			thisTextarea.current.scrollHeight,  // get maximum between content height and min height
-			minHeight
+			height
 		)}px`
 	}, [value])
 

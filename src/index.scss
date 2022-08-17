@@ -12,6 +12,28 @@ html {
   font-size: 16px;
   color: $font-c-primary;
   letter-spacing: -.5px;
+
+  * {
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba($green-500, .3);
+      border: 2px solid $white;
+      border-left: 3px solid $white;
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba($green-500, 1);
+      }
+    }
+  }
 }
 
 #root {

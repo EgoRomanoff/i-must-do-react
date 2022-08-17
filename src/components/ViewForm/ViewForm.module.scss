@@ -21,7 +21,7 @@
 }
 
 .title {
-  font-size: .875rem;
+  font-size: 1rem;
   color: $font-c-secondary;
   font-weight: 400;
 }
@@ -50,6 +50,7 @@
   display: flex;
   font-size: .875rem;
   margin-top: 5px;
+  margin-bottom: 50px;
 
   & > * + * {
     margin-left: 10px;

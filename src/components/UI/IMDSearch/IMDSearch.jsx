@@ -1,9 +1,16 @@
 import stl from './IMDSearch.module.scss'
-import {useState} from "react"
+import { useContext, useEffect, useState } from "react"
+import { AppContext } from "../../../context"
 
 function IMDSearch({ setSearchData }) {
 
+	const { selectedTask } = useContext(AppContext)
 	const [inputValue, setInputValue] = useState('')
+	const [isDisabled, setIsDisabled] = useState(false)
+
+	useEffect(() => {
+		setIsDisabled((selectedTask.isEdited || selectedTask.isAdded))
+	}, [selectedTask])
 
 	const onChangeHandler = e => {    // set input value to searchData state in Resizer
 		setSearchData(prevState => {
@@ -16,15 +23,14 @@ function IMDSearch({ setSearchData }) {
 	}
 
 	return (
-		<div className={ stl.wrapper }>
-			<input
-				className={ stl.input }
-				type="search"
-				placeholder="Найти задачу..."
-				value={ inputValue }
-				onChange={ onChangeHandler }
-			/>
-		</div>
+		<input
+			className={ stl.input }
+			type="search"
+			placeholder="Найти задачу..."
+			value={ inputValue }
+			onChange={ onChangeHandler }
+			disabled={ isDisabled }
+		/>
 	)
 }
 

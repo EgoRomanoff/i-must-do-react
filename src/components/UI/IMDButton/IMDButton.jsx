@@ -1,7 +1,16 @@
 import stl from './IMDButton.module.scss'
 import Icons from "../../Icons/Icons"
+import {useContext, useEffect, useState} from "react"
+import { AppContext } from "../../../context"
 
 function IMDButton({ text = '', type, size, onClick }) {
+
+	const { selectedTask } = useContext(AppContext)
+	const [isDisabled, setIsDisabled] = useState(false)
+
+	useEffect(() => {
+		setIsDisabled((selectedTask.isEdited || selectedTask.isAdded))
+	}, [selectedTask])
 
 	let iconSize
 	const elemClasses = [stl.btn] // get necessary CSS-classes and set in array
@@ -62,6 +71,7 @@ function IMDButton({ text = '', type, size, onClick }) {
 			className={ elemClasses.join(' ') }
 			onClick={ onClick }
 			type='button'
+			disabled={ type === 'add' && isDisabled }
 		>
 			{text}
 			{

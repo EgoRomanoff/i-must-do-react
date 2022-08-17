@@ -32,7 +32,7 @@ function ViewForm({ taskData }) {
 	}
 
 	return (
-		<form className={ `${stl.inner} ${stl.showed}` } ref={thisForm}>
+		<form className={`${ stl.inner } ${ stl.showed }`} ref={thisForm}>
 			<header className={ stl.header }>
 				<h4 className={ stl.title }>Просмотр задачи</h4>
 				<IMDButton
@@ -63,9 +63,9 @@ function ViewForm({ taskData }) {
 					{ taskData.date ? convertDate(taskData.date) : '--.--.----' }
 				</span>
 
-				<span className={
-					`${ stl.time } ${ !taskData.time && stl.empty }`
-				}>
+					<span className={
+						`${ stl.time } ${ !taskData.time && stl.empty }`
+					}>
 					{ taskData.time || '--:--'}
 				</span>
 			</div>
