@@ -13,24 +13,20 @@
 
 </div>
 
+## Content
+1. [About Project](#about-project)
+2. [Features](#features)
+3. [Realizing](#realizing)
+4. [Difficulties](#difficulties)
+
+
 ## About Project
 
 ![i-must-do-react](https://user-images.githubusercontent.com/67374276/189346706-6e712a22-efef-46df-bd4e-d4ecd5fbce0b.png)
 
+> *This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
+
 [**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
-
-*This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
-
-In the process of creating this application, I have learned the base of [React.js](https://reactjs.org/) in practice :
-* functional components;
-* react-hooks (*useState, useEffect, useRef*);
-* Context API;
-* JSX;
-* css-modules.
-
-I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get tasks data from a [fake json server](https://jsonbin.io) when the application is starting.
-
-I used [SASS (SCSS)](https://sass-lang.com/) for creating the styles of react-components as a scss-modules.
 
 ## Features
 
@@ -44,4 +40,56 @@ I used [SASS (SCSS)](https://sass-lang.com/) for creating the styles of react-co
 * setting the task completion status (*waiting, in progress, complete*)
 * dragging the border between the task list and the view & edit form
 * counting the total number of tasks and each type of tasks separately
+
+## Realizing
+
+In the process of creating this application, I have learned the base of [React.js](https://reactjs.org/) in practice :
+* functional components;
+* react-hooks (*useState, useEffect, useRef*);
+* Context API;
+* JSX;
+* css-modules.
+
+I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get tasks data from a [fake json server](https://jsonbin.io) when the application is starting.  
+I used [SASS (SCSS)](https://sass-lang.com/) for creating the styles of react-components as a scss-modules.
+
+## Difficulties
+
+A particular difficulty for me was the dragging the border between the task list and the view & edit form.  
+I realized it with [Resizer-element](https://github.com/EgoRomanoff/i-must-do-react/tree/master/src/components/Resizer) and events ```onDrugStart``` and ```onDrug```
+``` javascript
+function Resizer({ className, resizableElem }) {
+
+	let startPosition, tasksWidth
+
+	// creating an element for changing drag effect picture
+	const dragImg = document.createElement('canvas');
+	dragImg.classList.add('drag-img')
+
+	// get coordinates and width values at the start of resizing
+	const startResize = e => {
+		e.stopPropagation()
+		startPosition = e.clientX // X of resizer element
+		tasksWidth = resizableElem.current.offsetWidth // current width of Resizer element
+		e.dataTransfer.setDragImage(dragImg, 0, 0) // set drag image
+		e.target.style.cursor = 'col-resize'
+	}
+
+	// change width when border is moving
+	const resize = e => {
+		resizableElem.current.style.width = `${tasksWidth + e.clientX - startPosition}px`
+	}
+
+	return (
+    <div
+	    className={ className }
+      draggable={ true }
+      onDragStart={ startResize }
+      onDrag={ resize }
+    />
+	)
+}
+
+export default Resizer
+```
 
