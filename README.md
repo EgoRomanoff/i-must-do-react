@@ -19,9 +19,14 @@
 
 [**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
 
-*This application was created as part of a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
+*This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
 
-
+In the process of creating this application, I got acquainted with the basic functions in practice [React.js](https://reactjs.org/):
+* functional components;
+* react-hooks (*useState, useEffect, useRef*);
+* Context API;
+* JSX;
+* css-modules
 
 ## Features
 
