@@ -21,15 +21,16 @@
 
 *This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
 
-In the process of creating this application, I have learned the basic functions in practice [React.js](https://reactjs.org/):
+In the process of creating this application, I have learned the base of [React.js](https://reactjs.org/) in practice :
 * functional components;
 * react-hooks (*useState, useEffect, useRef*);
 * Context API;
 * JSX;
-* css-modules
+* css-modules.
 
-I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get task data from a [fake json server](https://jsonbin.io)
+I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get tasks data from a [fake json server](https://jsonbin.io) when the application is starting.
 
+I used [SASS (SCSS)](https://sass-lang.com/) for creating the styles of react-components as a scss-modules.
 
 ## Features
 
