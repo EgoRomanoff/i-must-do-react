@@ -15,15 +15,14 @@
 </div>
 
 ## Content
-1. [About Project](#about-project)
+1. [Demo](#demo)
 2. [Features](#features)
 3. [Realizing](#realizing)
 4. [Difficulties](#difficulties)
 
+## Demo
 
-## About Project
-
-![i-must-do-react](https://user-images.githubusercontent.com/67374276/189346706-6e712a22-efef-46df-bd4e-d4ecd5fbce0b.png)
+![i-must-do-demo-optimized](https://user-images.githubusercontent.com/67374276/189445715-4ac7953f-424c-4d6e-a932-8c0b761fd833.gif)
 
 [**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
 
