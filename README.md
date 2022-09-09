@@ -25,8 +25,6 @@
 
 ![i-must-do-react](https://user-images.githubusercontent.com/67374276/189346706-6e712a22-efef-46df-bd4e-d4ecd5fbce0b.png)
 
-> *This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
-
 [**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
 
 ## Features
