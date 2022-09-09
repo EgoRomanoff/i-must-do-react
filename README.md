@@ -17,8 +17,13 @@
 
 ![i-must-do-react](https://user-images.githubusercontent.com/67374276/189346706-6e712a22-efef-46df-bd4e-d4ecd5fbce0b.png)
 
-[**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.  
+[**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
+
 *This application was created as part of a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
+
+
+
+## Features
 
 ***Basic features***:
 * viewing the task list;
@@ -29,5 +34,4 @@
 * searching tasks by name;
 * setting the task completion status (*waiting, in progress, complete*)
 * dragging the border between the task list and the view & edit form
-
 
