@@ -9,8 +9,9 @@
 
 </div>
 
+---
 
-**I Must Do** is a Web TODO-application on React.js.
+[**I Must Do**](https://egoromanoff.github.io/i-must-do-react/) - a Web TODO-application on React.js.
 
 ***Basic features***:
 * viewing the task list;
@@ -19,5 +20,5 @@
 
 ***Specific features***:
 * searching tasks by name;
-* set the task completion status
+* setting the task completion status (*waiting, in progress, complete*)
 
