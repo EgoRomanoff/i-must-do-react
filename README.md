@@ -1,7 +1,13 @@
-<h1 align="center">I Must Do (React.js)</h1>
-<p align="center">https://egoromanoff.github.io/i-must-do-react/</p>
+<h1>I Must Do (React.js)</h1>
+<br>
 <div align="center">
-  
+  <a href="https://egoromanoff.github.io/i-must-do-react/">
+    <img src="https://user-images.githubusercontent.com/67374276/189341459-d35f57b6-e2d4-46be-94c0-3b878738540a.svg" width="200px">
+  </a>
+</div>
+<br>
+<div align="center">
+
   ![react](https://user-images.githubusercontent.com/67374276/189316409-19d69d0f-b45f-430f-ac02-cf15051d6642.svg)&nbsp;
   ![javascript](https://user-images.githubusercontent.com/67374276/189316388-4182d570-0a10-4dcf-9568-d13e7c6b5c56.svg)&nbsp;
   ![jsx](https://user-images.githubusercontent.com/67374276/189318506-583a8454-9209-4e10-be2e-ed720f4f58db.svg)&nbsp;
