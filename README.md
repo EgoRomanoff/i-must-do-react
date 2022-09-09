@@ -80,7 +80,7 @@ function Resizer({ className, resizableElem }) {
 	}
 
 	return (
-    <div
+		<div
 	    className={ className }
       draggable={ true }
       onDragStart={ startResize }
