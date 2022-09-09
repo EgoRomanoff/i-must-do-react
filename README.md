@@ -21,12 +21,15 @@
 
 *This application was created as a test assignment for an internship at [Infotecs Academy](https://academy.infotecs.ru/)*
 
-In the process of creating this application, I got acquainted with the basic functions in practice [React.js](https://reactjs.org/):
+In the process of creating this application, I have learned the basic functions in practice [React.js](https://reactjs.org/):
 * functional components;
 * react-hooks (*useState, useEffect, useRef*);
 * Context API;
 * JSX;
 * css-modules
+
+I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get task data from a [fake json server](https://jsonbin.io)
+
 
 ## Features
 
@@ -39,4 +42,5 @@ In the process of creating this application, I got acquainted with the basic fun
 * searching tasks by name;
 * setting the task completion status (*waiting, in progress, complete*)
 * dragging the border between the task list and the view & edit form
+* counting the total number of tasks and each type of tasks separately
 
