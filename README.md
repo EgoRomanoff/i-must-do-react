@@ -1,3 +1,4 @@
+<br>
 <div align="center">
   <a href="https://egoromanoff.github.io/i-must-do-react/">
     <img src="https://user-images.githubusercontent.com/67374276/189341459-d35f57b6-e2d4-46be-94c0-3b878738540a.svg" width="200px">
@@ -44,11 +45,11 @@
 ## Realizing
 
 In the process of creating this application, I have learned the base of [React.js](https://reactjs.org/) in practice :
-* functional components;
-* react-hooks (*useState, useEffect, useRef*);
-* Context API;
-* JSX;
-* css-modules.
+* [functional components](https://reactjs.org/docs/components-and-props.html#function-and-class-components);
+* [react-hooks (*useState, useEffect, useRef*)](https://reactjs.org/docs/hooks-faq.html#gatsby-focus-wrapper);
+* [Context API](https://reactjs.org/docs/context.html#gatsby-focus-wrapper);
+* [JSX](https://reactjs.org/docs/introducing-jsx.html);
+* [css-modules](https://habr.com/ru/post/335244/).
 
 I also used the [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get tasks data from a [fake json server](https://jsonbin.io) when the application is starting.  
 I used [SASS (SCSS)](https://sass-lang.com/) for creating the styles of react-components as a scss-modules.
