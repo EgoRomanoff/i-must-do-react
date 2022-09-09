@@ -8,4 +8,15 @@
 
 </div>
 
-**I Must Do** is a Web TODO application with a basic set of features
+
+**I Must Do** is a Web TODO-application on React.js.
+
+***Basic features***:
+* viewing the task list;
+* adding, editing and deleting tasks;
+* view detailed information about a task.
+
+***Specific features***:
+* searching tasks by name;
+* set the task completion status
+
