@@ -1,7 +1,7 @@
 <br>
 <div align="center">
   <a href="https://egoromanoff.github.io/i-must-do-react/">
-    <img src="https://user-images.githubusercontent.com/67374276/189341459-d35f57b6-e2d4-46be-94c0-3b878738540a.svg" width="200px">
+    <img alt="I Must Do demo link" src="https://user-images.githubusercontent.com/67374276/189341459-d35f57b6-e2d4-46be-94c0-3b878738540a.svg" width="200px">
   </a>
 </div>
 <br>
