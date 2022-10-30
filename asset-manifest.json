@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/i-must-do-react/static/css/main.cd1dea96.css",
-    "main.js": "/i-must-do-react/static/js/main.4fd7738e.js",
+    "main.js": "/i-must-do-react/static/js/main.7e4a1c2d.js",
     "static/media/og-image.jpg": "/i-must-do-react/static/media/og-image.cc49fa0341d2c4c20a99.jpg",
     "static/media/og-image-twitter.jpg": "/i-must-do-react/static/media/og-image-twitter.5a33f2dd4b3b2f1b299c.jpg",
     "static/media/GothamPro-Medium.woff": "/i-must-do-react/static/media/GothamPro-Medium.3c379e6305b34250be8a.woff",
@@ -17,10 +17,10 @@
     "static/media/cancel__icon.svg": "/i-must-do-react/static/media/cancel__icon.f0ca693dd5aa0f6ce03b.svg",
     "index.html": "/i-must-do-react/index.html",
     "main.cd1dea96.css.map": "/i-must-do-react/static/css/main.cd1dea96.css.map",
-    "main.4fd7738e.js.map": "/i-must-do-react/static/js/main.4fd7738e.js.map"
+    "main.7e4a1c2d.js.map": "/i-must-do-react/static/js/main.7e4a1c2d.js.map"
   },
   "entrypoints": [
     "static/css/main.cd1dea96.css",
-    "static/js/main.4fd7738e.js"
+    "static/js/main.7e4a1c2d.js"
   ]
 }
