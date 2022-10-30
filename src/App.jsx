@@ -3,6 +3,7 @@ import Tasks from "./components/Tasks/Tasks"
 import TaskForm from "./components/TaskForm/TaskForm"
 import {useEffect, useState} from "react"
 import { AppContext } from "./context"
+import Head from './components/Head/Head'
 
 function App() {
 
@@ -112,6 +113,7 @@ function App() {
 
   return (
     <div className={ stl.wrapper }>
+      <Head />
       <AppContext.Provider value={{
         tasks, selectedTask, setSelectedTask, changeStatus, deleteTask, editTask, convertDate
       }}>
